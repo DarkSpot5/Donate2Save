@@ -1,0 +1,34 @@
+{
+  "@@locale": "en",
+  "registerTitle": "Register",
+  "registerCreateAccount": "Create Account",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "confirmPasswordLabel": "Confirm Password",
+  "selectRoleLabel": "Select Role",
+  "roleUser": "User",
+  "roleHospital": "Hospital",
+  "registerButton": "Register",
+
+  "forgotPassword": "Forgot Password",
+  "resetYourPassword": "Reset Your Password",
+  "sendResetEmail": "Send Reset Email",
+  "emailSentTitle": "Email Sent",
+  "resetEmailSent": "Password reset instructions have been sent to {email}.",
+  "@resetEmailSent": {
+    "description": "Message shown after sending a password reset email",
+    "placeholders": {
+      "email": {}
+    }
+  },
+
+  "appTitle": "Donate2Save",
+  "appSubtitle": "Health Care",
+  "forgotPasswordLink": "Forgot Password?",
+  "loginButton": "Login",
+  "orDivider": "or",
+
+  "searchHint": "Search hospitals",
+  "noNotifications": "No new notifications.",
+  "languageToggle": "اردو"
+}

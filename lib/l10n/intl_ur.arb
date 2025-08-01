@@ -1,0 +1,35 @@
+{
+  "@@locale": "ur",
+
+  "registerTitle": "رجسٹر",
+  "emailLabel": "ای میل",
+  "registerCreateAccount": "اکاؤنٹ بنائیں",
+  "passwordLabel": "پاس ورڈ",
+  "confirmPasswordLabel": "پاس ورڈ کی تصدیق کریں",
+  "selectRoleLabel": "کردار منتخب کریں",
+  "roleUser": "صارف",
+  "roleHospital": "ہسپتال",
+  "registerButton": "رجسٹر کریں",
+  
+  "forgotPassword": "پاس ورڈ بھول گئے",
+  "resetYourPassword": "اپنا پاس ورڈ دوبارہ ترتیب دیں",
+  "emailSentTitle": "ای میل بھیج دی",
+  "sendResetEmail": "ری سیٹ ای میل بھیجیں",
+  "resetEmailSent": "پاس ورڈ ری سیٹ کی معلومات {email} پر بھیج دی گئی ہیں۔",
+  "@resetEmailSent": {
+    "description": "پاس ورڈ ری سیٹ ای میل بھیجنے کے بعد دکھایا جانے والا پیغام",
+    "placeholders": {
+      "email": {}
+    }
+  },
+
+  "appTitle": "ڈونیٹ 2 سیو",
+  "appSubtitle": "ہیلتھ کیئر",
+  "forgotPasswordLink": "پاس ورڈ بھول گئے؟",
+  "loginButton": "لاگ اِن",
+  "orDivider": "یا",
+
+  "searchHint": "ہسپتال تلاش کریں",
+  "noNotifications": "کوئی نئی اطلاعات نہیں",
+  "languageToggle": "English"
+}
