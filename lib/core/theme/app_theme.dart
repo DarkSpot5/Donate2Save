@@ -13,6 +13,7 @@ class AppTheme {
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
+      centerTitle: true,
       elevation: 0,
     ),
     textTheme: const TextTheme(
@@ -22,8 +23,9 @@ class AppTheme {
       bodySmall: TextStyle(fontSize: 14, color: Colors.white70),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: const TextStyle(color: Colors.grey),
+      labelStyle: const TextStyle(color: Colors.blueGrey),
       prefixIconColor: Colors.red,
+      suffixIconColor: Colors.red,
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(
@@ -48,6 +50,9 @@ class AppTheme {
         ),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
       ),
+    ),
+  iconTheme: const IconThemeData(
+      color: Colors.white,
     ),
   );
 }

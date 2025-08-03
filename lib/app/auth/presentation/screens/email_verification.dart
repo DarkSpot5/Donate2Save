@@ -2,6 +2,9 @@ import 'package:donate2save/core/widgets/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import '../controllers/email_verification_controller.dart';
 import 'package:provider/provider.dart';
+import '../../../../../providers/locale_providers.dart' as langprovider;
+import '../../../../generated/l10n.dart';
+
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({super.key});
@@ -13,7 +16,15 @@ class EmailVerificationScreen extends StatelessWidget {
       child: Scaffold(
        appBar: AppBar(
         title: const Text('Email Verification'),
-      ),
+        actions: [ 
+        IconButton(
+          icon: const Icon(Icons.language),
+          tooltip: S.of(context).languageToggle,
+          onPressed: () {
+            Provider.of<langprovider.LocaleProvider>(context, listen: false).toggleLocale();
+          },
+        )
+      ]),
 
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -29,7 +40,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   const SizedBox(height: 20),
 
                     const Text(
-                      'Please check your inbox and click on the verification link.',
+                      'Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white70),
                     ),

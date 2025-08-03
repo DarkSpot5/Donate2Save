@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../../generated/l10n.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/models/model.dart';
 import '../../data/models/user_model.dart';
+import '../../data/models/hospital_model.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/utils/error_messages.dart';
 import '../../../../core/services/navigation_service.dart';
 import '../../data/datasource/auth_remote_datasource.dart';
-import '../controllers/email_verification_controller.dart';
-import '../../../auth/presentation/screens/email_verification.dart';
 
-class AuthController with ChangeNotifier {
+class AuthController extends ChangeNotifier {
   final AuthRemoteDataSource _remote = AuthRemoteDataSource();
 
   final generalModel = Model();
   final userModel = UserModel();
+  final hospitalModel = HospitalModel();
   
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
-  Map<String, dynamic>? currentProfile;
-  String? currentRole;
+  void startLoading() {
+    _isLoading = true;
+    notifyListeners();
+  }
 
-  String get uid => generalModel.uid ?? _remote.currentUser?.uid ?? '';
+  void stopLoading() {
+    _isLoading = false;
+    notifyListeners();
+  }
 
-  void _setLoading(bool value) {
+  void setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
-  
+
   Future<void> register(String password) async {
-    _setLoading(true);
+    startLoading();
     
     final result = await _remote.createProfile(generalModel.email.toString(), password);
 
     await result.fold(
       (failuremessage) async{
-        _setLoading(false);
+        stopLoading();
         SnackbarService.showSnackbar(ErrorMessages.firebase(failuremessage));
       },
 
@@ -45,146 +48,144 @@ class AuthController with ChangeNotifier {
         generalModel.userCredential = userCredential;
 
         if (userCredential.user == null) {
+          stopLoading();
           SnackbarService.showSnackbar('User not found after registration.');
           return;
         }
 
-        generalModel.uid = userCredential.user!.uid;
+        generalModel.fromJson({'Uid': userCredential.user!.uid});
+        startLoading();
         await _remote.initialInfoSave(); // Save role info in Firestore
-        userCredential.user!.sendEmailVerification();
+        generalModel.userCredential?.user!.sendEmailVerification();
 
         // Navigate to email verification screen with role
+        stopLoading();
         await NavigationService.navigateToNamed('/email-verification');});
-
-  _setLoading(false);
-}
-/*
-  Future<void> login(String email, String password) async {
-    if (email.isEmpty || password.isEmpty) {
-      SnackbarService.showSnackbar('Email and password must not be empty.');
-      return;
-    }
-
-    try {
-      _setLoading(true);
-      final userCred = await _remote.login(email, password);
-      final user = userCred.user;
-      if (user != null) {
-        await _handlePostLogin(user);
-      }
-    } catch (e) {
-      final code = (e as dynamic).code ?? '';
-      SnackbarService.showSnackbar(ErrorMessages.firebase(code));
-    } finally {
-      _setLoading(false);
-    }
   }
 
-  Future<void> _handlePostLogin(User user) async {
-    _setLoading(true);
-    final userDoc = await _remote.getUserDoc();
-    final hospitalDoc = await _remote.getHospitalDoc();
-
-    if (user.emailVerified) {
-      if (userDoc.exists || hospitalDoc.exists) {
-        final doc = userDoc.exists ? userDoc : hospitalDoc;
-        currentProfile = doc.data() as Map<String, dynamic>?;
-        currentRole = userDoc.exists ? 'User' : 'Hospital';
-
-        if ((currentProfile?['Name'] ?? '').toString().isNotEmpty) {
-          NavigationService.navigateToReplacement(const HomeScreen());
-        } else {
-          await _remote.updateUserFcmToken();
-          if (currentRole == 'User') {
-            NavigationService.navigateToReplacement(const UserProfileSetupPage());
-          } else {
-            NavigationService.navigateToReplacement(const HospitalProfileSetupPage());
-          }
-        }
-      } else {
-        SnackbarService.showSnackbar('User document does not exist.');
-      }
-    } else {
-      NavigationService.navigateToReplacement(
-        EmailVerificationScreen(),
+  Future<void> login(String email, String password) async {
+    startLoading();
+      
+      final result = await _remote.login(email, password);
+      
+      await result.fold(
+        (failureMessage) async {
+          stopLoading();
+          SnackbarService.showSnackbar(ErrorMessages.firebase(failureMessage));
+        },
+        (userCred) async {
+          generalModel.userCredential = userCred;
+          generalModel.fromJson({'Email': email, 'Uid': userCred.user!.uid});
+          await _handlePostLogin();
+          stopLoading();
+        },
       );
     }
-    _setLoading(false);
+
+  Future<void> _handlePostLogin() async {
+    startLoading();
+    final result = await _remote.screenToNavigate(generalModel.userCredential!.user!);
+    
+    await result.fold(
+      (failureMessage) async {
+        stopLoading();
+        SnackbarService.showSnackbar(ErrorMessages.firebase(failureMessage));
+      },
+      (navigationScreen) async {
+          stopLoading();
+         await NavigationService.navigateToReplacementNamed(navigationScreen);
+      },
+    );
+    stopLoading();
   }
-*/
-  Future<void> sendResetEmail(String email, BuildContext context) async {
+
+  Future<void> sendResetEmail(String email) async {
     
     try {
-      _setLoading(true);
+      startLoading();
       await _remote.sendResetEmail(email);
-      
+      stopLoading();
       NavigationService.showCustomDialog(
-        title: S.of(context).emailSentTitle,
-        content: S.of(context).resetEmailSent(email),
+        title: "Email Sent",
+        content: ("Password reset instructions have been sent to $email"),
       );
     } catch (e) {
       final code = (e as dynamic).code ?? '';
       SnackbarService.showSnackbar(ErrorMessages.firebase(code));
     } finally {
-      _setLoading(false);
+      stopLoading();
     }
   }
 
   Future<void> checkVerificationStatus() async {
-    _setLoading(true);
+    startLoading();
       
     if (await _remote.checkVerificationStatus() == true) {
       // Update the general model with verification status
-      generalModel.isVerified = true;
-      generalModel.verificationTimestamp = DateTime.now();
-      
-      await _remote.updateProfile({
-        'isVerified': true,
-        'verificationTimestamp': generalModel.verificationTimestamp,
+      generalModel.fromJson({
+        'IsVerified': true,
+        'VerificationTimestamp': DateTime.now().toIso8601String(),
       });
+      
+      await _remote.updateProfile(generalModel.toJson());
+      stopLoading();
       await NavigationService.showCustomDialog(
       title: 'Verified',
       content: 'Your email has been successfully verified.');
        
         if (generalModel.role == 'Hospital') {
-          NavigationService.showCustomDialog(
-          title: 'Welcome Hospital',
-          content: 'Your hospital profile is ready.',
-          );
-          //NavigationService.navigateToReplacement(const HospitalProfileSetupPage());
+          NavigationService.navigateToReplacementNamed('/hospital-profile-setup');
         } else {
-          NavigationService.showCustomDialog(
-          title: 'Welcome User',
-          content: 'Your user profile is ready.',
-          );
-          //NavigationService.navigateToReplacement(const UserProfileSetupPage());
+          NavigationService.navigateToReplacementNamed('/user-profile-setup');
         }
       } else {
+        stopLoading();
         NavigationService.showCustomDialog(
           title: 'Email Not Verified',
           content: 'Your email is not verified. Please verify your email and try again.',
         );
       }
-    _setLoading(false);
     }
 
   Future<void> resendVerificationEmail() async {
     
     try {
-      _setLoading(true);
+      startLoading();
       await generalModel.userCredential?.user!.sendEmailVerification();
+      stopLoading();
       SnackbarService.showSnackbar('Verification email has been resent.');
     } catch (e) {
       SnackbarService.showSnackbar('Error: ${e.toString()}');
     } finally {
-      _setLoading(false);
+      stopLoading();
     }
   }
-/*
+
+  Future<void> saveProfile(Map<String, dynamic> data) async {
+
+    try {
+      startLoading();
+      await _remote.updateProfile(data);
+      stopLoading();
+      SnackbarService.showSnackbar('Profile updated successfully.');
+      NavigationService.navigateToReplacementNamed('/home');
+    } catch (e) {
+      stopLoading();
+      SnackbarService.showSnackbar('Failed to update profile: ${e.toString()}');
+    } finally {
+      stopLoading();
+    }
+  }
+
   void logout() async {
-    _setLoading(true);
+    startLoading();
+    generalModel.reset();
+    userModel.reset();
+    hospitalModel.reset();
+
     await _remote.signOut();
-    _setLoading(false);
+
+    stopLoading();
     NavigationService.navigateToReplacementNamed('/login');
-  }*/
+  }
 }

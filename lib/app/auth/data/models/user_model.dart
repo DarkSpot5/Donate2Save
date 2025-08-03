@@ -1,7 +1,6 @@
 class UserModel {
   String? bloodGroup;
   String? gender;
-  String? location;
 
   static final UserModel _instance = UserModel._internal();
   factory UserModel() => _instance;
@@ -11,20 +10,17 @@ class UserModel {
   void reset() {
     bloodGroup = null;
     gender = null;
-    location = null;
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'bloodGroup': bloodGroup,
-      'gender': gender,
-      'location': location,
+      'BloodGroup': bloodGroup,
+      'Gender': gender,
     };
   }
 
-  void fromMap(Map<String, dynamic> data) {
-    bloodGroup = data['bloodGroup'];
-    gender = data['gender'];
-    location = data['location'];
+  void fromJson(Map<String, dynamic>? data) {
+    bloodGroup = data!['BloodGroup'] ?? bloodGroup;
+    gender = data['Gender'] ?? gender;
   }
 }

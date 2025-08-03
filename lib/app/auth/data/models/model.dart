@@ -4,9 +4,10 @@ class Model {
   UserCredential? userCredential;
   String? uid;
   String? name;
-  String? contactNumber;
+  String? contact;
   String? email;
   String? role;
+  String? location;
   bool isVerified = false;
   DateTime? verificationTimestamp;
 
@@ -19,34 +20,38 @@ class Model {
     userCredential = null;
     uid = null;
     name = null;
-    contactNumber = null;
+    contact = null;
     email = null;
     role = null;
+    location = null;
     isVerified = false;
     verificationTimestamp = null;
     }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'uid': uid,
-      'name': name,
-      'contactNumber': contactNumber,
-      'email': email,
-      'role': role,
-      'isVerified': isVerified,
-      'verificationTimestamp': verificationTimestamp?.toIso8601String(),
+      'Uid': uid,
+      'Name': name,
+      'Contact': contact,
+      'Email': email,
+      'Role': role,
+      'Location': location,
+      'IsVerified': isVerified,
+      'VerificationTimestamp': verificationTimestamp?.toIso8601String(),
     };
   }
 
-  void fromMap(Map<String, dynamic> data) {
-    uid = data['uid'];
-    name = data['name'];
-    contactNumber = data['contactNumber'];
-    email = data['email'];
-    role = data['role'];
-    isVerified = data['isVerified'] ?? false;
-    verificationTimestamp = data['verificationTimestamp'] != null
-        ? DateTime.parse(data['verificationTimestamp'])
-        : null;
+  void fromJson(Map<String, dynamic>? data) {
+    if (data == null) return;
+    uid = data['Uid'] ?? uid;
+    name = data['Name'] ?? name;
+    contact = data['Contact'] ?? contact;
+    email = data['Email'] ?? email;
+    role = data['Role'] ?? role;
+    location = data['Location'] ?? location;
+    isVerified = data['IsVerified'] ?? isVerified;
+    verificationTimestamp = data['VerificationTimestamp'] != null
+        ? DateTime.parse(data['VerificationTimestamp'])
+        : verificationTimestamp;
   }
 }

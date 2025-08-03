@@ -46,7 +46,7 @@ Widget build(BuildContext context) {
                   controller: controller.emailController,
                   decoration: InputDecoration(
                     labelText: S.of(context).emailLabel,
-                    prefixIcon: const Icon(Icons.email, color: Colors.red),
+                    prefixIcon: const Icon(Icons.email),
                   ),
                   style: const TextStyle(color: Colors.black),
                 ),
@@ -55,7 +55,7 @@ Widget build(BuildContext context) {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => controller.sendResetEmail(context),
+                      onPressed: () => controller.sendResetEmail(),
                       child: Text(
                         S.of(context).sendResetEmail,
                         style: TextStyle(fontSize: 18),

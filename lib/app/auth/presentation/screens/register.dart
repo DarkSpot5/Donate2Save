@@ -1,8 +1,9 @@
 import 'package:donate2save/core/widgets/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../generated/l10n.dart';
 import '../controllers/register_controller.dart';
+import '../../../../../providers/locale_providers.dart' as langprovider;
+import '../../../../generated/l10n.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -12,7 +13,16 @@ class RegistrationPage extends StatelessWidget {
     final controller = Provider.of<RegisterController>(context);
     return LoadingOverlay(
       child: Scaffold(
-        appBar: AppBar(title: Text(S.of(context).registerTitle)),
+        appBar: AppBar(title: Text(S.of(context).registerTitle),
+        actions: [ 
+        IconButton(
+          icon: const Icon(Icons.language),
+          tooltip: S.of(context).languageToggle,
+          onPressed: () {
+            Provider.of<langprovider.LocaleProvider>(context, listen: false).toggleLocale();
+          },
+        )
+      ]),
         body: Stack(
           children: [
             // Main content with scrolling
@@ -50,7 +60,7 @@ class RegistrationPage extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: S.of(context).emailLabel,
-                        prefixIcon: const Icon(Icons.email, color: Colors.red),
+                        prefixIcon: const Icon(Icons.email),
                       ),
                       style: const TextStyle(color: Colors.black),
                     ),
@@ -61,7 +71,7 @@ class RegistrationPage extends StatelessWidget {
                       obscureText: !controller.isPasswordVisible,
                       decoration: InputDecoration(
                         labelText: S.of(context).passwordLabel,
-                        prefixIcon: const Icon(Icons.lock, color: Colors.red),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
                             controller.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -81,7 +91,7 @@ class RegistrationPage extends StatelessWidget {
                       obscureText: !controller.isPasswordVisible,
                       decoration: InputDecoration(
                         labelText: S.of(context).confirmPasswordLabel,
-                        prefixIcon: const Icon(Icons.lock, color: Colors.red),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
                             controller.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -109,7 +119,7 @@ class RegistrationPage extends StatelessWidget {
                       },
                       decoration: InputDecoration(
                         labelText: S.of(context).selectRoleLabel,
-                        prefixIcon: const Icon(Icons.person, color: Colors.red),
+                        prefixIcon: const Icon(Icons.person),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -117,7 +127,7 @@ class RegistrationPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity, // Ensures full width like in login page
                       child: ElevatedButton(
-                        onPressed: () => controller.register(),
+                        onPressed: () => controller.register(context),
                         child: Text(
                           S.of(context).registerButton,
                           style: TextStyle(fontSize: 18),

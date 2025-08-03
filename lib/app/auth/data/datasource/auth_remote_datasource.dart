@@ -22,18 +22,60 @@ class AuthRemoteDataSource {
   }
 
   Future<void> initialInfoSave() async {
-    await FirebaseFirestore.instance.collection(generalModel.role.toString()).doc(generalModel.uid).set({
-          'Email': generalModel.email,
-          'Role': generalModel.role,
-          'isVerified': generalModel.isVerified,
-        });
-  }
-/*
-  Future<UserCredential> login(String email, String password) {
-    return _auth.signInWithEmailAndPassword(email: email, password: password);
+    await FirebaseFirestore.instance.collection(generalModel.role.toString()).doc(generalModel.uid).set(generalModel.toJson());
   }
 
-  */
+  Future<Either<String, UserCredential>> login(String email, String password) async {
+    try{
+      final userCred = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return Right(userCred); // Success
+    } on FirebaseAuthException catch (e) {
+      return Left(e.code); // Return error code
+    } catch (e) {
+      return Left('An unexpected error occurred: ${e.toString()}'); // General error
+    }
+  }
+
+  Future<String> roleCheck() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final userDoc = await _firestore.collection('User').doc(user.uid).get();
+      final hospitalDoc = await _firestore.collection('Hospital').doc(user.uid).get();
+
+      if (userDoc.exists || hospitalDoc.exists) {
+        return userDoc.exists ? 'User' : 'Hospital';
+      }
+      else {
+        return "User document does not exist.";
+      }
+    }
+    else{
+    return 'User is null';
+    }
+    }
+  Future<Either<String, String>> screenToNavigate(User user) async {
+      
+    if (user.emailVerified) {
+      final role = await roleCheck();
+      if (role == 'User' || role == 'Hospital') {
+        final profileData = await fetchProfile(role);
+        final name = profileData?['Name']; 
+
+        if (name != null) {
+          return Right('/home'); // Navigate to HomeScreen
+        } 
+        else {
+          return Right(role == 'User' ? '/user-profile-setup' : '/hospital-profile-setup');
+          }
+      } 
+      else {
+        return Left(role);  // Return error message if role is not User or Hospital
+      }
+    } else {
+      return Right('/email-verification'); // Navigate to email verification screen
+    }
+  }
+  
   Future<void> sendResetEmail(String email) {
     throw _auth.sendPasswordResetEmail(email: email);
   }
@@ -56,14 +98,6 @@ Future<bool> checkVerificationStatus() async {
       await _firestore.collection(generalModel.role.toString()).doc(user.uid).update(data);
     }
   }
-/*
-  Future<void> updateUserFcmToken() async {
-    final user = _auth.currentUser;
-    final token = await FirebaseMessaging.instance.getToken();
-    if (user != null && token != null) {
-      await _firestore.collection('User').doc(user.uid).update({'fcmToken': token});
-    }
-  }
 
   Future<Map<String, dynamic>?> fetchProfile(String role) async {
     final user = _auth.currentUser;
@@ -73,21 +107,7 @@ Future<bool> checkVerificationStatus() async {
     }
     return null;
   }
-
-  Future<void> saveUserProfile(Map<String, dynamic> data) async {
-    final user = _auth.currentUser;
-    if (user != null) {
-      await _firestore.collection('User').doc(user.uid).update(data);
-    }
-  }
-
-  Future<void> saveHospitalProfile(Map<String, dynamic> data) async {
-    final user = _auth.currentUser;
-    if (user != null) {
-      await _firestore.collection('Hospital').doc(user.uid).update(data);
-    }
-  }
-
+/*
   Future<void> updateBloodStock(Map<String, int> bloodStock) async {
     final user = _auth.currentUser;
     if (user != null) {
@@ -103,35 +123,6 @@ Future<bool> checkVerificationStatus() async {
     return _firestore.collection('DonationRequests').doc(requestId).update(data);
   }
 
-  Future<void> createChat(String otherUserId) async {
-    final me = _auth.currentUser!;
-    final ids = [me.uid, otherUserId]..sort();
-    final docId = ids.join('_');
-    await _firestore.collection('Chat').doc(docId).set({
-      'participants': ids,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
-  }
-
-  Future<void> sendChatMessage(String otherUserId, String text, String senderName) async {
-    final me = _auth.currentUser!;
-    final ids = [me.uid, otherUserId]..sort();
-    final docId = ids.join('_');
-    final chatDoc = _firestore.collection('Chat').doc(docId);
-
-    await chatDoc.set({
-      'participants': ids,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
-
-    await chatDoc.collection('messages').add({
-      'text': text,
-      'senderId': me.uid,
-      'senderName': senderName,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-  }
-
   Future<DocumentSnapshot> getUserDoc() {
     final uid = _auth.currentUser!.uid;
     return _firestore.collection('User').doc(uid).get();
@@ -141,7 +132,6 @@ Future<bool> checkVerificationStatus() async {
     final uid = _auth.currentUser!.uid;
     return _firestore.collection('Hospital').doc(uid).get();
   }
-
-  Future<void> signOut() => _auth.signOut();
 */
+  Future<void> signOut() => _auth.signOut();
 }
