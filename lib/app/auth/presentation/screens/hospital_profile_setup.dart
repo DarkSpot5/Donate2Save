@@ -54,7 +54,7 @@ class HospitalProfileSetupPage extends StatelessWidget {
     final controller = Provider.of<HospitalProfileSetupController>(context);
     return LoadingOverlay(child:
      Scaffold(
-        appBar: AppBar(title: const Text('Setup Profile'),
+        appBar: AppBar(title: Text(S.of(context).setupProfileTitle),
         actions: [ 
         IconButton(
           icon: const Icon(Icons.language),
@@ -76,13 +76,11 @@ class HospitalProfileSetupPage extends StatelessWidget {
              child: Column(
                mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-              const SizedBox(height: 20),
               
               TextFormField(
                 controller: controller.nameController,
                 decoration: InputDecoration(
-                  labelText: 'Hospital Name',
+                  labelText: S.of(context).hospitalNameLabel,
                   prefixIcon: const Icon(Icons.local_hospital),
                 ),
                 style: const TextStyle(color: Colors.black),
@@ -94,7 +92,7 @@ class HospitalProfileSetupPage extends StatelessWidget {
                 controller: controller.contactController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Contact Number',
+                  labelText: S.of(context).contactNumberLabel,
                   prefixIcon: const Icon(Icons.contact_phone),
                 ),
                 style: const TextStyle(color: Colors.black),
@@ -107,7 +105,7 @@ class HospitalProfileSetupPage extends StatelessWidget {
                 controller: controller.locationController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  labelText: 'Location',
+                  labelText: S.of(context).locationLabel,
                   prefixIcon: const Icon(Icons.location_on),
                 ),
                 style: const TextStyle(color: Colors.black),
@@ -115,10 +113,9 @@ class HospitalProfileSetupPage extends StatelessWidget {
               
               const SizedBox(height: 16),
               
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'Initial Blood Stock',
+                child: Text(S.of(context).initialBloodStock,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
@@ -139,7 +136,8 @@ class HospitalProfileSetupPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                 ), 
-                child: const Text('Save Profile', style: TextStyle(fontSize: 18)),
+                child: Text(S.of(context).saveProfileButton, 
+                style: TextStyle(fontSize: 18)),
               ),
             ),
             ],

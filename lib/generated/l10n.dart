@@ -99,16 +99,6 @@ class S {
     );
   }
 
-  /// `User`
-  String get roleUser {
-    return Intl.message('User', name: 'roleUser', desc: '', args: []);
-  }
-
-  /// `Hospital`
-  String get roleHospital {
-    return Intl.message('Hospital', name: 'roleHospital', desc: '', args: []);
-  }
-
   /// `Register`
   String get registerButton {
     return Intl.message('Register', name: 'registerButton', desc: '', args: []);
@@ -194,6 +184,146 @@ class S {
     return Intl.message('or', name: 'orDivider', desc: '', args: []);
   }
 
+  /// `Email Verification`
+  String get emailVerificationTitle {
+    return Intl.message(
+      'Email Verification',
+      name: 'emailVerificationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A verification link has been sent to your email.`
+  String get emailVerificationSent {
+    return Intl.message(
+      'A verification link has been sent to your email.',
+      name: 'emailVerificationSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.`
+  String get emailVerificationSentSubtitle {
+    return Intl.message(
+      'Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.',
+      name: 'emailVerificationSentSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I verified My Email`
+  String get iVerifiedMyEmail {
+    return Intl.message(
+      'I verified My Email',
+      name: 'iVerifiedMyEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Verification Email`
+  String get resendVerificationEmail {
+    return Intl.message(
+      'Resend Verification Email',
+      name: 'resendVerificationEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Name`
+  String get userNameLabel {
+    return Intl.message('User Name', name: 'userNameLabel', desc: '', args: []);
+  }
+
+  /// `Blood Group`
+  String get bloodGroupLabel {
+    return Intl.message(
+      'Blood Group',
+      name: 'bloodGroupLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get genderLabel {
+    return Intl.message('Gender', name: 'genderLabel', desc: '', args: []);
+  }
+
+  /// `Male`
+  String get maleLabel {
+    return Intl.message('Male', name: 'maleLabel', desc: '', args: []);
+  }
+
+  /// `Female`
+  String get femaleLabel {
+    return Intl.message('Female', name: 'femaleLabel', desc: '', args: []);
+  }
+
+  /// `Other`
+  String get otherLabel {
+    return Intl.message('Other', name: 'otherLabel', desc: '', args: []);
+  }
+
+  /// `Hospital Name`
+  String get hospitalNameLabel {
+    return Intl.message(
+      'Hospital Name',
+      name: 'hospitalNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Initial Blood Stock`
+  String get initialBloodStock {
+    return Intl.message(
+      'Initial Blood Stock',
+      name: 'initialBloodStock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setup Profile`
+  String get setupProfileTitle {
+    return Intl.message(
+      'Setup Profile',
+      name: 'setupProfileTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Number`
+  String get contactNumberLabel {
+    return Intl.message(
+      'Contact Number',
+      name: 'contactNumberLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get locationLabel {
+    return Intl.message('Location', name: 'locationLabel', desc: '', args: []);
+  }
+
+  /// `Save Profile`
+  String get saveProfileButton {
+    return Intl.message(
+      'Save Profile',
+      name: 'saveProfileButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Search hospitals`
   String get searchHint {
     return Intl.message(
@@ -211,6 +341,168 @@ class S {
       name: 'noNotifications',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `All fields are required.`
+  String get errorAllFieldsRequired {
+    return Intl.message(
+      'All fields are required.',
+      name: 'errorAllFieldsRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email address.`
+  String get errorEnterEmail {
+    return Intl.message(
+      'Please enter your email address.',
+      name: 'errorEnterEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get errorInvalidEmail {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'errorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match.`
+  String get errorPasswordsDoNotMatch {
+    return Intl.message(
+      'Passwords do not match.',
+      name: 'errorPasswordsDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 8 characters long.`
+  String get errorPasswordTooShort {
+    return Intl.message(
+      'Password must be at least 8 characters long.',
+      name: 'errorPasswordTooShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must contain uppercase, lowercase, number, and special character.`
+  String get errorPasswordRequirements {
+    return Intl.message(
+      'Password must contain uppercase, lowercase, number, and special character.',
+      name: 'errorPasswordRequirements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select a role.`
+  String get errorRoleNotSelected {
+    return Intl.message(
+      'Please select a role.',
+      name: 'errorRoleNotSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the Name`
+  String get errorEnterName {
+    return Intl.message(
+      'Please enter the Name',
+      name: 'errorEnterName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the Hospital Name`
+  String get errorEnterHospitalName {
+    return Intl.message(
+      'Please enter the Hospital Name',
+      name: 'errorEnterHospitalName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter the Contact Number`
+  String get errorEnterContact {
+    return Intl.message(
+      'Please enter the Contact Number',
+      name: 'errorEnterContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid 11-digit Contact Number`
+  String get errorInvalidContact {
+    return Intl.message(
+      'Enter a valid 11-digit Contact Number',
+      name: 'errorInvalidContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select your Blood Group`
+  String get errorSelectBloodGroup {
+    return Intl.message(
+      'Please select your Blood Group',
+      name: 'errorSelectBloodGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please insert your Location`
+  String get errorEnterLocation {
+    return Intl.message(
+      'Please insert your Location',
+      name: 'errorEnterLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select your Gender`
+  String get errorSelectGender {
+    return Intl.message(
+      'Please select your Gender',
+      name: 'errorSelectGender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter quantity for {bloodType}`
+  String errorEnterBloodStock(Object bloodType) {
+    return Intl.message(
+      'Please enter quantity for $bloodType',
+      name: 'errorEnterBloodStock',
+      desc:
+          'Shown when quantity field for a blood group (e.g., A+, B-) is empty',
+      args: [bloodType],
+    );
+  }
+
+  /// `Enter a valid number for {bloodType}`
+  String errorInvalidBloodStock(Object bloodType) {
+    return Intl.message(
+      'Enter a valid number for $bloodType',
+      name: 'errorInvalidBloodStock',
+      desc:
+          'Shown when quantity field for a blood group (e.g., A+, B-) has invalid number',
+      args: [bloodType],
     );
   }
 

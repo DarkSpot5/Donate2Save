@@ -8,6 +8,7 @@ import '../../../../generated/l10n.dart';
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<RegisterController>(context);
@@ -108,7 +109,7 @@ class RegistrationPage extends StatelessWidget {
                     // Role selection dropdown
                     DropdownButtonFormField<String>(
                       value: controller.selectedRole,
-                      items: <String>[S.of(context).roleUser, S.of(context).roleHospital]
+                      items: <String>["User","Hospital"]
                           .map((String role) => DropdownMenuItem<String>(
                                 value: role,
                                 child: Text(role),

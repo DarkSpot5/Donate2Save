@@ -15,7 +15,7 @@ class UserProfileSetupPage extends StatelessWidget {
     return LoadingOverlay(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Setup Profile'),
+          title: Text(S.of(context).setupProfileTitle),
           actions: [
             IconButton(
               icon: const Icon(Icons.language),
@@ -36,15 +36,13 @@ class UserProfileSetupPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      
-                      const SizedBox(height: 20),
 
                       // User Name Field
                       TextFormField(
                         controller: controller.nameController,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
-                          labelText: 'User Name',
+                          labelText: S.of(context).userNameLabel,
                           prefixIcon: const Icon(Icons.person),
                         ),
                         style: const TextStyle(color: Colors.black),
@@ -58,7 +56,7 @@ class UserProfileSetupPage extends StatelessWidget {
                         maxLength: 11,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          labelText: 'Contact Number',
+                          labelText: S.of(context).contactNumberLabel,
                           prefixIcon: const Icon(Icons.phone),
                         ),
                         style: const TextStyle(color: Colors.black),
@@ -82,7 +80,7 @@ class UserProfileSetupPage extends StatelessWidget {
                           controller.updateBloodType(newValue);
                         },
                         decoration: InputDecoration(
-                          labelText: 'Blood Group',
+                          labelText: S.of(context).bloodGroupLabel,
                           labelStyle: const TextStyle(color: Colors.blueGrey),
                           prefixIcon: const Icon(Icons.bloodtype),
                         ),
@@ -95,7 +93,7 @@ class UserProfileSetupPage extends StatelessWidget {
                         controller: controller.locationController,
                         keyboardType: TextInputType.streetAddress,
                         decoration: InputDecoration(
-                          labelText: 'Location',
+                          labelText: S.of(context).locationLabel,
                           labelStyle: const TextStyle(color: Colors.blueGrey),
                           prefixIcon: const Icon(Icons.location_on),
                         ),
@@ -107,7 +105,7 @@ class UserProfileSetupPage extends StatelessWidget {
                     Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Gender"),
+                      Text(S.of(context).genderLabel),
                       Row(
                         children: [
                           Radio<String>(
@@ -115,19 +113,19 @@ class UserProfileSetupPage extends StatelessWidget {
                             groupValue: controller.selectedGender,
                             onChanged: controller.updateGender,
                           ),
-                          const Text('Male'),
+                          Text(S.of(context).maleLabel),
                           Radio<String>(
                             value: 'Female',
                             groupValue: controller.selectedGender,
                             onChanged: controller.updateGender,
                           ),
-                          const Text('Female'),
+                          Text(S.of(context).femaleLabel),
                           Radio<String>(
                             value: 'Other',
                             groupValue: controller.selectedGender,
                             onChanged: controller.updateGender,
                           ),
-                          const Text('Other'),
+                          Text(S.of(context).otherLabel),
                         ],
                       ),
                     ],
@@ -142,7 +140,7 @@ class UserProfileSetupPage extends StatelessWidget {
                           onPressed: () {
                             controller.saveProfile(context);
                           },
-                          child: const Text('Save Profile', style: TextStyle(fontSize: 18)),
+                          child: Text(S.of(context).saveProfileButton, style: TextStyle(fontSize: 18)),
                         ),
                       ),
                     ],

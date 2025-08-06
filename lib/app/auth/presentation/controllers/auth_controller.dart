@@ -41,7 +41,7 @@ class AuthController extends ChangeNotifier {
     await result.fold(
       (failuremessage) async{
         stopLoading();
-        SnackbarService.showSnackbar(ErrorMessages.firebase(failuremessage));
+        SnackbarService.showSnackbar(failuremessage);
       },
 
       (userCredential) async{

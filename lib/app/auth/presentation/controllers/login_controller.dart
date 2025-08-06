@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/services/navigation_service.dart';
 import 'auth_controller.dart';
+import '../../../../generated/l10n.dart';
 //import '../../../dashboard/home/presentation/screens/home.dart';
 
 class LoginController extends ChangeNotifier {
 
   final AuthController authController;
-  LoginController(this.authController);
+  final S localization; // Injected localization
+
+  LoginController(this.authController, {required this.localization});
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -29,7 +32,7 @@ class LoginController extends ChangeNotifier {
     final password = passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      SnackbarService.showSnackbar('Email or password must not be empty.');
+      SnackbarService.showSnackbar(localization.errorAllFieldsRequired);
       return;
     }
     authController.login(email, password);

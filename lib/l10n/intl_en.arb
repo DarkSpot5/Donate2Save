@@ -1,13 +1,12 @@
 {
   "@@locale": "en",
+  
   "registerTitle": "Register",
   "registerCreateAccount": "Create Account",
   "emailLabel": "Email",
   "passwordLabel": "Password",
   "confirmPasswordLabel": "Confirm Password",
   "selectRoleLabel": "Select Role",
-  "roleUser": "User",
-  "roleHospital": "Hospital",
   "registerButton": "Register",
 
   "forgotPassword": "Forgot Password",
@@ -28,7 +27,58 @@
   "loginButton": "Login",
   "orDivider": "or",
 
+  "emailVerificationTitle": "Email Verification",
+  "emailVerificationSent": "A verification link has been sent to your email.",
+  "emailVerificationSentSubtitle": "Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.",
+  "iVerifiedMyEmail": "I verified My Email",
+  "resendVerificationEmail": "Resend Verification Email",
+
+  "userNameLabel": "User Name",
+  "bloodGroupLabel": "Blood Group",
+  "genderLabel": "Gender",
+  "maleLabel": "Male",
+  "femaleLabel": "Female",
+  "otherLabel": "Other",
+  
+  "hospitalNameLabel": "Hospital Name",
+  "initialBloodStock": "Initial Blood Stock",
+
+  "setupProfileTitle": "Setup Profile",
+  "contactNumberLabel": "Contact Number",
+  "locationLabel": "Location",
+  "saveProfileButton": "Save Profile",
+  
   "searchHint": "Search hospitals",
   "noNotifications": "No new notifications.",
+
+  "errorAllFieldsRequired": "All fields are required.",
+  "errorEnterEmail": "Please enter your email address.",
+  "errorInvalidEmail": "Please enter a valid email address.",
+  "errorPasswordsDoNotMatch": "Passwords do not match.",
+  "errorPasswordTooShort": "Password must be at least 8 characters long.",
+  "errorPasswordRequirements": "Password must contain uppercase, lowercase, number, and special character.",
+  "errorRoleNotSelected": "Please select a role.",
+  "errorEnterName": "Please enter the Name",
+  "errorEnterHospitalName": "Please enter the Hospital Name",
+  "errorEnterContact": "Please enter the Contact Number",
+  "errorInvalidContact": "Enter a valid 11-digit Contact Number",
+  "errorSelectBloodGroup": "Please select your Blood Group",
+  "errorEnterLocation": "Please insert your Location",
+  "errorSelectGender": "Please select your Gender",
+  "errorEnterBloodStock": "Please enter quantity for {bloodType}",
+  "errorInvalidBloodStock": "Enter a valid number for {bloodType}",
+  "@errorEnterBloodStock": {
+    "description": "Shown when quantity field for a blood group (e.g., A+, B-) is empty",
+    "placeholders": {
+      "bloodType": {}
+    }
+  },
+  "@errorInvalidBloodStock": {
+    "description": "Shown when quantity field for a blood group (e.g., A+, B-) has invalid number",
+    "placeholders": {
+      "bloodType": {}
+    }
+  },
+
   "languageToggle": "اردو"
 }

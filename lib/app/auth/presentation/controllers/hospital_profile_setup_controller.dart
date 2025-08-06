@@ -3,10 +3,14 @@ import '../../../../core/services/snackbar_service.dart';
 import '../../data/models/model.dart';
 import '../../data/models/hospital_model.dart';
 import '../controllers/auth_controller.dart';
+import '../../../../generated/l10n.dart';
 
 class HospitalProfileSetupController extends ChangeNotifier {
+  
   final AuthController authController;
-  HospitalProfileSetupController(this.authController);
+  final S localization; // Injected localization
+
+  HospitalProfileSetupController(this.authController, {required this.localization});
   
   final generalModel = Model();
   final hospitalModel = HospitalModel();
@@ -52,37 +56,37 @@ class HospitalProfileSetupController extends ChangeNotifier {
     
     final name = nameController.text.trim();
     if (name.isEmpty) {
-      SnackbarService.showSnackbar('Please enter the hospital name');
+      SnackbarService.showSnackbar(localization.errorEnterHospitalName);
       return false;
     }
 
     final contact = contactController.text.trim();
     if (contact.isEmpty) {
-      SnackbarService.showSnackbar('Please enter the contact number');
+      SnackbarService.showSnackbar(localization.errorEnterContact);
       return false;
     }
 
     if (!RegExp(r'^\d{11}$').hasMatch(contact)) {
-      SnackbarService.showSnackbar('Enter a valid 11-digit contact number');
+      SnackbarService.showSnackbar(localization.errorInvalidContact);
       return false;
     }
 
     final location = locationController.text.trim();
     if (location.isEmpty) {
-    SnackbarService.showSnackbar('Please insert your Location');
+    SnackbarService.showSnackbar(localization.errorEnterLocation);
     return false;
     }
 
     for (var entry in bloodControllers.entries) {
       final value = entry.value.text.trim();
       if (value.isEmpty) {
-        SnackbarService.showSnackbar('Please enter quantity for ${entry.key}');
+        SnackbarService.showSnackbar(localization.errorEnterBloodStock(entry.key));
         return false;
       }
 
       final intValue = int.tryParse(value);
       if (intValue == null) {
-        SnackbarService.showSnackbar('Enter a valid number for ${entry.key}');
+        SnackbarService.showSnackbar(localization.errorInvalidBloodStock(entry.key));
         return false;
       }
 

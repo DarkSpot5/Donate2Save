@@ -7,9 +7,7 @@
   "passwordLabel": "پاس ورڈ",
   "confirmPasswordLabel": "پاس ورڈ کی تصدیق کریں",
   "selectRoleLabel": "کردار منتخب کریں",
-  "roleUser": "صارف",
-  "roleHospital": "ہسپتال",
-  "registerButton": "رجسٹر کریں",
+  "registerButton": "رجسٹر",
   
   "forgotPassword": "پاس ورڈ بھول گئے",
   "resetYourPassword": "اپنا پاس ورڈ دوبارہ ترتیب دیں",
@@ -21,7 +19,7 @@
     "placeholders": {
       "email": {}
     }
-  },
+},
 
   "appTitle": "ڈونیٹ 2 سیو",
   "appSubtitle": "ہیلتھ کیئر",
@@ -29,7 +27,58 @@
   "loginButton": "لاگ اِن",
   "orDivider": "یا",
 
+  "emailVerificationTitle": "ای میل کی تصدیق",
+  "emailVerificationSent": "آپ کی ای میل پر ایک تصدیقی لنک بھیج دیا گیا ہے۔",
+  "emailVerificationSentSubtitle": "براہ کرم اپنے ان باکس کو چیک کریں اور تصدیقی لنک پر کلک کریں۔\nاگر آپ کو ای میل نظر نہیں آتی تو براہ کرم اپنے سپیم فولڈر کو چیک کریں۔",
+  "iVerifiedMyEmail": "میں نے تصدیق کر لی ہے",
+  "resendVerificationEmail": "تصدیقی ای میل دوبارہ بھیجیں",
+
+  "userNameLabel": "صارف کا نام",
+  "bloodGroupLabel": "خون کا گروپ",
+  "genderLabel": "جنس",
+  "maleLabel": "مرد",
+  "femaleLabel": "عورت",
+  "otherLabel": "دیگر",
+
+  "hospitalNameLabel": "ہسپتال کا نام",
+  "initialBloodStock": "ابتدائی خون کا ذخیرہ",
+
+  "setupProfileTitle": "پروفائل کی ترتیب",
+  "contactNumberLabel": "رابطہ نمبر",
+  "locationLabel": "پتہ",
+  "saveProfileButton": "پروفائل محفوظ کریں",
+
   "searchHint": "ہسپتال تلاش کریں",
   "noNotifications": "کوئی نئی اطلاعات نہیں",
+
+  "errorAllFieldsRequired": "تمام فیلڈز کا پُر کرنا ضروری ہے۔",
+  "errorEnterEmail": "براہ کرم اپنا ای میل ایڈریس درج کریں۔",
+  "errorInvalidEmail": "براہ کرم درست ای میل ایڈریس درج کریں۔",
+  "errorPasswordsDoNotMatch": "پاس ورڈ مماثل نہیں ہیں۔",
+  "errorPasswordTooShort": "پاس ورڈ کم از کم 8 حروف پر مشتمل ہونا چاہیے۔",
+  "errorPasswordRequirements": "پاس ورڈ میں بڑا حرف، چھوٹا حرف، نمبر، اور خصوصی حرف ہونا ضروری ہے۔",
+  "errorRoleNotSelected": "براہ کرم کردار منتخب کریں۔",
+  "errorEnterName": "براہ کرم نام درج کریں",
+  "errorEnterHospitalName": "براہ کرم ہسپتال کا نام درج کریں",
+  "errorEnterContact": "براہ کرم رابطہ نمبر درج کریں",
+  "errorInvalidContact": "درست 11 ہندسوں پر مشتمل رابطہ نمبر درج کریں",
+  "errorSelectBloodGroup": "براہ کرم اپنا بلڈ گروپ منتخب کریں",
+  "errorEnterLocation": "براہ کرم اپنا مقام درج کریں",
+  "errorSelectGender": "براہ کرم اپنی جنس منتخب کریں",
+  "errorEnterBloodStock": "{bloodType} کے لیے مقدار درج کریں",
+  "errorInvalidBloodStock": "{bloodType} کے لیے درست نمبر درج کریں",
+  "@errorEnterBloodStock": {
+    "description": "جب خون کے گروپ کے لیے مقدار خالی ہو (مثلاً A+، B-)",
+    "placeholders": {
+      "bloodType": {}
+    }
+  },
+  "@errorInvalidBloodStock": {
+    "description": "جب خون کے گروپ کے لیے غلط نمبر درج ہو (مثلاً A+، B-)",
+    "placeholders": {
+      "bloodType": {}
+    }
+  },
+
   "languageToggle": "English"
 }

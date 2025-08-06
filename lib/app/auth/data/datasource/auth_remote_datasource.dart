@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import '../models/model.dart';
+import '../../../../core/utils/error_messages.dart';
 
 class AuthRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -15,7 +16,8 @@ class AuthRemoteDataSource {
       final userCred = await _auth.createUserWithEmailAndPassword(email: email,password: password,);
       return Right(userCred); // Success
     } on FirebaseAuthException catch (e) {
-      return Left(e.code); // Return error code
+      final friendlyMessage = ErrorMessages.firebase(e.code);
+      return Left(friendlyMessage);
     }catch (e) {
       return Left('An unexpected error occurred: ${e.toString()}'); // General error
     }

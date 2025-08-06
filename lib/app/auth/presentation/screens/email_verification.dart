@@ -15,7 +15,7 @@ class EmailVerificationScreen extends StatelessWidget {
     return LoadingOverlay(
       child: Scaffold(
        appBar: AppBar(
-        title: const Text('Email Verification'),
+        title: Text(S.of(context).emailVerificationTitle),
         actions: [ 
         IconButton(
           icon: const Icon(Icons.language),
@@ -32,15 +32,15 @@ class EmailVerificationScreen extends StatelessWidget {
           child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    'A verification link has been sent to your email.',
+                  Text(S.of(context).emailVerificationSent,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
+                  
                   const SizedBox(height: 20),
 
-                    const Text(
-                      'Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.',
+                    Text(
+                      S.of(context).emailVerificationSentSubtitle,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white70),
                     ),
@@ -52,8 +52,8 @@ class EmailVerificationScreen extends StatelessWidget {
                     onPressed: () async {
                         await controller.checkVerificationStatus();   
                             },
-                    child: const Text(
-                      'I Verified My Email',
+                    child: Text(
+                      S.of(context).iVerifiedMyEmail,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -64,8 +64,8 @@ class EmailVerificationScreen extends StatelessWidget {
                     onPressed: () async {
                       await controller.resendVerificationEmail();
                     },
-                    child: const Text(
-                      'Resend Verification Email',
+                    child: Text(
+                      S.of(context).resendVerificationEmail,
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 12,
