@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../generated/l10n.dart';
 import '../auth/presentation/controllers/auth_controller.dart';
 import '../auth/presentation/controllers/register_controller.dart';
 import '../auth/presentation/screens/register.dart';
@@ -21,22 +20,19 @@ class AppRoutes {
   static Map<String, WidgetBuilder> get all => {
       '/': (_) => ChangeNotifierProvider(
           create: (context) => LoginController(
-            Provider.of<AuthController>(context, listen: false),
-            localization: S.of(context)), // Injected localization),
+            Provider.of<AuthController>(context, listen: false)),
           child: const LoginPage(),
         ),
 
       '/login': (_) => ChangeNotifierProvider(
           create: (context) => LoginController(
-            Provider.of<AuthController>(context, listen: false),
-            localization: S.of(context)), // Injected localization),
+            Provider.of<AuthController>(context, listen: false)),
           child: const LoginPage(),
         ),
 
       '/register': (_) => ChangeNotifierProvider(
           create: (context) => RegisterController(
-            Provider.of<AuthController>(context, listen: false),
-            localization: S.of(context)), // Injected localization
+            Provider.of<AuthController>(context, listen: false)),
           child: const RegistrationPage(),
             ),
 
@@ -48,22 +44,19 @@ class AppRoutes {
       
       '/forgot-password': (_) => Provider(
         create: (context) => ForgotPasswordController(
-          Provider.of<AuthController>(context, listen: false),
-          localization: S.of(context)),
+          Provider.of<AuthController>(context, listen: false)),
           child: const ForgotPasswordPage(),
         ),
       
       '/user-profile-setup': (_) => ChangeNotifierProvider(
           create: (context) => UserProfileSetupController(
-            Provider.of<AuthController>(context, listen: false),
-            localization: S.of(context)),
+            Provider.of<AuthController>(context, listen: false)),
           child: const UserProfileSetupPage(),
         ),
 
       '/hospital-profile-setup': (_) => ChangeNotifierProvider(
           create: (context) => HospitalProfileSetupController(
-            Provider.of<AuthController>(context, listen: false),
-            localization: S.of(context)),
+            Provider.of<AuthController>(context, listen: false)),
           child: const HospitalProfileSetupPage(),
         ),
 

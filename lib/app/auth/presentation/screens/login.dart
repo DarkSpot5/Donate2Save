@@ -127,7 +127,7 @@ class LoginPage extends StatelessWidget {
                       width: double.infinity, // Makes the button fill the available width
                       child: ElevatedButton(
                         onPressed: () {
-                          controller.login(); // Calls the login function
+                          controller.login(context); // Calls the login function
                           },
                         child: Text(S.of(context).loginButton), // Use localized login button text
                       ),

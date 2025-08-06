@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../../core/services/snackbar_service.dart';
 import '../../data/models/model.dart';
 import '../../data/models/user_model.dart';
 import '../controllers/auth_controller.dart';
-import '../../../../generated/l10n.dart';
+import '../../../../core/errors/validation_errors.dart';
 
 class UserProfileSetupController extends ChangeNotifier {
  
   final AuthController authController;
-  final S localization; // Injected localization
 
-  UserProfileSetupController(this.authController, {required this.localization});
+  UserProfileSetupController(this.authController);
 
   final generalModel = Model();
   final userModel = UserModel();
@@ -39,49 +37,18 @@ class UserProfileSetupController extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _validateInputs() {
-    final form = formKey.currentState;
-
-    if (form == null || !form.validate()) {
-      return false; // Built-in form field validation failed
-    }
-
-    if (nameController.text.trim().isEmpty) {
-        SnackbarService.showSnackbar(localization.errorEnterName);
-        return false;
-      }
-
-    final contact = contactController.text.trim();
-    if (contact.isEmpty) {
-        SnackbarService.showSnackbar(localization.errorEnterContact);
-        return false;
-      }
-
-    if (!RegExp(r'^\d{11}$').hasMatch(contact)) {
-        SnackbarService.showSnackbar(localization.errorInvalidContact);
-        return false;
-      }
-
-    if (selectedBloodGroup.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorSelectBloodGroup);
-      return false;
-    }
-
-    final location = locationController.text.trim();
-    if (location.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorEnterLocation);
-      return false;
-    }
-    if (selectedGender == null || selectedGender!.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorSelectGender);
-      return false;
-    }
-
-    return true; // All validations passed
-  }
-
 void saveProfile(BuildContext context) async {
-  if (!_validateInputs()) return;
+  final isValid = ValidationErrors.validateUserSetup(
+  formKey: formKey,
+  nameController: nameController,
+  contactController: contactController,
+  locationController: locationController,
+  selectedBloodGroup: selectedBloodGroup,
+  selectedGender: selectedGender,
+  context: context,
+  );
+  if (!isValid) return;
+
 
   generalModel.fromJson({
     'Name': nameController.text.trim(),

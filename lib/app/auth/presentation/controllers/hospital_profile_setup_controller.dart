@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../../core/services/snackbar_service.dart';
 import '../../data/models/model.dart';
 import '../../data/models/hospital_model.dart';
 import '../controllers/auth_controller.dart';
-import '../../../../generated/l10n.dart';
+import '../../../../core/errors/validation_errors.dart';
 
 class HospitalProfileSetupController extends ChangeNotifier {
   
   final AuthController authController;
-  final S localization; // Injected localization
 
-  HospitalProfileSetupController(this.authController, {required this.localization});
+  HospitalProfileSetupController(this.authController);
   
   final generalModel = Model();
   final hospitalModel = HospitalModel();
@@ -47,57 +45,19 @@ class HospitalProfileSetupController extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _validateInputs() {
-    final form = formKey.currentState;
+Future<void> saveProfile(BuildContext context) async {
+  final isValid = ValidationErrors.validateHospitalSetup(
+    formKey: formKey,
+    nameController: nameController,
+    contactController: contactController,
+    locationController: locationController,
+    bloodControllers: bloodControllers,
+    bloodStock: bloodStock,
+    context: context,
+  );
+  if (!isValid) return;
 
-    if (form == null || !form.validate()) {
-      return false; // Built-in form field validation failed
-    }
-    
-    final name = nameController.text.trim();
-    if (name.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorEnterHospitalName);
-      return false;
-    }
 
-    final contact = contactController.text.trim();
-    if (contact.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorEnterContact);
-      return false;
-    }
-
-    if (!RegExp(r'^\d{11}$').hasMatch(contact)) {
-      SnackbarService.showSnackbar(localization.errorInvalidContact);
-      return false;
-    }
-
-    final location = locationController.text.trim();
-    if (location.isEmpty) {
-    SnackbarService.showSnackbar(localization.errorEnterLocation);
-    return false;
-    }
-
-    for (var entry in bloodControllers.entries) {
-      final value = entry.value.text.trim();
-      if (value.isEmpty) {
-        SnackbarService.showSnackbar(localization.errorEnterBloodStock(entry.key));
-        return false;
-      }
-
-      final intValue = int.tryParse(value);
-      if (intValue == null) {
-        SnackbarService.showSnackbar(localization.errorInvalidBloodStock(entry.key));
-        return false;
-      }
-
-      bloodStock[entry.key] = intValue; // Update from controller
-    }
-
-    return true;
-  }
-
-  Future<void> saveProfile(BuildContext context) async {
-    if (!_validateInputs()) return;
 
     generalModel.fromJson({
       'Name': nameController.text.trim(),

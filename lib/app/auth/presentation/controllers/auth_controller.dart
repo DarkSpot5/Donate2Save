@@ -3,9 +3,10 @@ import '../../data/models/model.dart';
 import '../../data/models/user_model.dart';
 import '../../data/models/hospital_model.dart';
 import '../../../../core/services/snackbar_service.dart';
-import '../../../../core/utils/error_messages.dart';
 import '../../../../core/services/navigation_service.dart';
+import '../../../../core/services/customDialog_service.dart';
 import '../../data/datasource/auth_remote_datasource.dart';
+import '../../../../core/errors/app_errors.dart';
 
 class AuthController extends ChangeNotifier {
   final AuthRemoteDataSource _remote = AuthRemoteDataSource();
@@ -63,7 +64,7 @@ class AuthController extends ChangeNotifier {
         await NavigationService.navigateToNamed('/email-verification');});
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String email, String password, BuildContext context) async {
     startLoading();
       
       final result = await _remote.login(email, password);
@@ -71,25 +72,25 @@ class AuthController extends ChangeNotifier {
       await result.fold(
         (failureMessage) async {
           stopLoading();
-          SnackbarService.showSnackbar(ErrorMessages.firebase(failureMessage));
+          SnackbarService.showSnackbar(failureMessage);
         },
         (userCred) async {
           generalModel.userCredential = userCred;
           generalModel.fromJson({'Email': email, 'Uid': userCred.user!.uid});
-          await _handlePostLogin();
+          await _handlePostLogin(context);
           stopLoading();
         },
       );
     }
 
-  Future<void> _handlePostLogin() async {
+  Future<void> _handlePostLogin(BuildContext context) async {
     startLoading();
-    final result = await _remote.screenToNavigate(generalModel.userCredential!.user!);
+    final result = await _remote.decideNavigationRoute(generalModel.userCredential!.user!);
     
     await result.fold(
-      (failureMessage) async {
+      (errorCode) async {
         stopLoading();
-        SnackbarService.showSnackbar(ErrorMessages.firebase(failureMessage));
+        SnackbarService.showSnackbar(AppErrors.getMessage(context, errorCode));
       },
       (navigationScreen) async {
           stopLoading();
@@ -101,20 +102,22 @@ class AuthController extends ChangeNotifier {
 
   Future<void> sendResetEmail(String email) async {
     
-    try {
-      startLoading();
-      await _remote.sendResetEmail(email);
-      stopLoading();
-      NavigationService.showCustomDialog(
-        title: "Email Sent",
-        content: ("Password reset instructions have been sent to $email"),
-      );
-    } catch (e) {
-      final code = (e as dynamic).code ?? '';
-      SnackbarService.showSnackbar(ErrorMessages.firebase(code));
-    } finally {
-      stopLoading();
-    }
+    startLoading();
+    final result = await _remote.sendResetEmail(email);
+
+    await result.fold(
+      (failureMessage) async {
+        stopLoading();
+        SnackbarService.showSnackbar(failureMessage);
+      },
+      (successMessage) async {
+        stopLoading();
+        CustomDialogService.showCustomDialog(
+          title: "Email Sent",
+          content: successMessage,
+        );
+      },
+    );
   }
 
   Future<void> checkVerificationStatus() async {
@@ -129,7 +132,7 @@ class AuthController extends ChangeNotifier {
       
       await _remote.updateProfile(generalModel.toJson());
       stopLoading();
-      await NavigationService.showCustomDialog(
+      await CustomDialogService.showCustomDialog(
       title: 'Verified',
       content: 'Your email has been successfully verified.');
        
@@ -140,7 +143,7 @@ class AuthController extends ChangeNotifier {
         }
       } else {
         stopLoading();
-        NavigationService.showCustomDialog(
+        CustomDialogService.showCustomDialog(
           title: 'Email Not Verified',
           content: 'Your email is not verified. Please verify your email and try again.',
         );

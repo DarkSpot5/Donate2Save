@@ -51,28 +51,4 @@ class NavigationService {
   static Future<dynamic> navigateNamedAndRemoveUntil(String routeName) {
     return navigatorKey.currentState!.pushNamedAndRemoveUntil(routeName, (route) => false);
   }
-
-  // Use to show a generic dialog from anywhere
-  // Example: forgot password success, error dialogs, alerts
-  static Future<void> showCustomDialog({
-    required String title,
-    required String content,
-  }) async {
-    final context = navigatorKey.currentContext;
-    if (context == null) return;
-
-    await showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(title),
-        content: Text(content),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 }

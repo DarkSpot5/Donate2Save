@@ -55,7 +55,7 @@ Widget build(BuildContext context) {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => controller.sendResetEmail(),
+                      onPressed: () => controller.sendResetEmail(context),
                       child: Text(
                         S.of(context).sendResetEmail,
                         style: TextStyle(fontSize: 18),

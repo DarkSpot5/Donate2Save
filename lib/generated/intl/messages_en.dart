@@ -24,7 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(bloodType) => "Enter a valid number for ${bloodType}";
 
-  static String m2(email) =>
+  static String m2(error) => "An unexpected error occurred: ${error}";
+
+  static String m3(email) =>
       "Password reset instructions have been sent to ${email}.";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -93,6 +95,50 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorSelectGender": MessageLookupByLibrary.simpleMessage(
       "Please select your Gender",
     ),
+    "error_default": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again.",
+    ),
+    "error_emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
+      "Email already registered. Try logging in.",
+    ),
+    "error_invalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "Invalid Credentials\nDo you have an account?",
+    ),
+    "error_invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "Invalid email address.",
+    ),
+    "error_invalid_role": MessageLookupByLibrary.simpleMessage(
+      "Invalid role returned from Firestore.",
+    ),
+    "error_missingAndroidPkgName": MessageLookupByLibrary.simpleMessage(
+      "An Android package name must be provided if the Android app is required to be installed.",
+    ),
+    "error_networkRequestFailed": MessageLookupByLibrary.simpleMessage(
+      "Check your internet connection.",
+    ),
+    "error_tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "Too many attempts. Try again later.",
+    ),
+    "error_unexpected": m2,
+    "error_userDisabled": MessageLookupByLibrary.simpleMessage(
+      "This user has been disabled.",
+    ),
+    "error_userNotFound": MessageLookupByLibrary.simpleMessage(
+      "No account found with this email.",
+    ),
+    "error_userTokenExpired": MessageLookupByLibrary.simpleMessage(
+      "You are no longer authenticated since your refresh token has expired.",
+    ),
+    "error_user_not_found": MessageLookupByLibrary.simpleMessage(
+      "User document does not exist.",
+    ),
+    "error_user_null": MessageLookupByLibrary.simpleMessage("User is null."),
+    "error_weakPassword": MessageLookupByLibrary.simpleMessage(
+      "The password is too weak.",
+    ),
+    "error_wrongPassword": MessageLookupByLibrary.simpleMessage(
+      "Incorrect password.",
+    ),
     "femaleLabel": MessageLookupByLibrary.simpleMessage("Female"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password"),
     "forgotPasswordLink": MessageLookupByLibrary.simpleMessage(
@@ -124,7 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendVerificationEmail": MessageLookupByLibrary.simpleMessage(
       "Resend Verification Email",
     ),
-    "resetEmailSent": m2,
+    "resetEmailSent": m3,
     "resetYourPassword": MessageLookupByLibrary.simpleMessage(
       "Reset Your Password",
     ),

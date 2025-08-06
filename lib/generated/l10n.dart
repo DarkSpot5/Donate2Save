@@ -506,6 +506,166 @@ class S {
     );
   }
 
+  /// `User is null.`
+  String get error_user_null {
+    return Intl.message(
+      'User is null.',
+      name: 'error_user_null',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User document does not exist.`
+  String get error_user_not_found {
+    return Intl.message(
+      'User document does not exist.',
+      name: 'error_user_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid role returned from Firestore.`
+  String get error_invalid_role {
+    return Intl.message(
+      'Invalid role returned from Firestore.',
+      name: 'error_invalid_role',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your internet connection.`
+  String get error_networkRequestFailed {
+    return Intl.message(
+      'Check your internet connection.',
+      name: 'error_networkRequestFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This user has been disabled.`
+  String get error_userDisabled {
+    return Intl.message(
+      'This user has been disabled.',
+      name: 'error_userDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Too many attempts. Try again later.`
+  String get error_tooManyRequests {
+    return Intl.message(
+      'Too many attempts. Try again later.',
+      name: 'error_tooManyRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are no longer authenticated since your refresh token has expired.`
+  String get error_userTokenExpired {
+    return Intl.message(
+      'You are no longer authenticated since your refresh token has expired.',
+      name: 'error_userTokenExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No account found with this email.`
+  String get error_userNotFound {
+    return Intl.message(
+      'No account found with this email.',
+      name: 'error_userNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect password.`
+  String get error_wrongPassword {
+    return Intl.message(
+      'Incorrect password.',
+      name: 'error_wrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email already registered. Try logging in.`
+  String get error_emailAlreadyInUse {
+    return Intl.message(
+      'Email already registered. Try logging in.',
+      name: 'error_emailAlreadyInUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email address.`
+  String get error_invalidEmail {
+    return Intl.message(
+      'Invalid email address.',
+      name: 'error_invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password is too weak.`
+  String get error_weakPassword {
+    return Intl.message(
+      'The password is too weak.',
+      name: 'error_weakPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Credentials\nDo you have an account?`
+  String get error_invalidCredentials {
+    return Intl.message(
+      'Invalid Credentials\nDo you have an account?',
+      name: 'error_invalidCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An Android package name must be provided if the Android app is required to be installed.`
+  String get error_missingAndroidPkgName {
+    return Intl.message(
+      'An Android package name must be provided if the Android app is required to be installed.',
+      name: 'error_missingAndroidPkgName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An unexpected error occurred: {error}`
+  String error_unexpected(Object error) {
+    return Intl.message(
+      'An unexpected error occurred: $error',
+      name: 'error_unexpected',
+      desc: 'Error with exact code. so developer can get an idea about error.',
+      args: [error],
+    );
+  }
+
+  /// `Something went wrong. Please try again.`
+  String get error_default {
+    return Intl.message(
+      'Something went wrong. Please try again.',
+      name: 'error_default',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `اردو`
   String get languageToggle {
     return Intl.message('اردو', name: 'languageToggle', desc: '', args: []);

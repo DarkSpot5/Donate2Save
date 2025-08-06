@@ -80,5 +80,31 @@
     }
   },
 
+  "error_user_null": "صارف موجود نہیں ہے۔",
+  "error_user_not_found": "صارف کی معلومات موجود نہیں ہیں۔",
+  "error_invalid_role": "فائر اسٹور سے غلط کردار واپس آیا۔",
+
+
+  "error_networkRequestFailed": "اپنے انٹرنیٹ کنکشن کو چیک کریں۔",
+  "error_userDisabled": "یہ صارف غیر فعال کر دیا گیا ہے۔",
+  "error_tooManyRequests": "بہت زیادہ کوششیں کی گئیں۔ بعد میں دوبارہ کوشش کریں۔",
+  "error_userTokenExpired": "آپ کی توثیق ختم ہو گئی ہے کیونکہ ریفریش ٹوکن کی مدت ختم ہو چکی ہے۔",
+  "error_userNotFound": "اس ای میل کے ساتھ کوئی اکاؤنٹ نہیں ملا۔",
+  "error_wrongPassword": "غلط پاس ورڈ۔",
+  "error_emailAlreadyInUse": "ای میل پہلے سے رجسٹرڈ ہے۔ براہ کرم لاگ ان کریں۔",
+  "error_invalidEmail": "غلط ای میل ایڈریس۔",
+  "error_weakPassword": "پاس ورڈ بہت کمزور ہے۔",
+  "error_invalidCredentials": "غلط معلومات\nکیا آپ کا اکاؤنٹ ہے؟",
+  "error_missingAndroidPkgName": "اگر اینڈرائیڈ ایپ کو انسٹال کرنے کی ضرورت ہو تو پیکیج کا نام لازمی ہے۔",
+  "error_unexpected": "ایک غیر متوقع خرابی پیش آگئی: {error}",
+  "error_default": "کچھ غلط ہو گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+
+  "@error_unexpected":{
+    "description": "بنانے والے کی آسانی کے لیے کوڈ ہے۔ تاکہ وہ سمجھ سکے۔",
+    "placeholders": {
+      "error": {}
+    }
+  },
+
   "languageToggle": "English"
 }

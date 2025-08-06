@@ -80,5 +80,30 @@
     }
   },
 
+  "error_user_null": "User is null.",
+  "error_user_not_found": "User document does not exist.",
+  "error_invalid_role": "Invalid role returned from Firestore.",
+
+  "error_networkRequestFailed": "Check your internet connection.",
+  "error_userDisabled": "This user has been disabled.",
+  "error_tooManyRequests": "Too many attempts. Try again later.",
+  "error_userTokenExpired": "You are no longer authenticated since your refresh token has expired.",
+  "error_userNotFound": "No account found with this email.",
+  "error_wrongPassword": "Incorrect password.",
+  "error_emailAlreadyInUse": "Email already registered. Try logging in.",
+  "error_invalidEmail": "Invalid email address.",
+  "error_weakPassword": "The password is too weak.",
+  "error_invalidCredentials": "Invalid Credentials\nDo you have an account?",
+  "error_missingAndroidPkgName": "An Android package name must be provided if the Android app is required to be installed.",
+  "error_unexpected": "An unexpected error occurred: {error}",
+  "error_default": "Something went wrong. Please try again.",
+
+  "@error_unexpected":{
+    "description": "Error with exact code. so developer can get an idea about error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+
   "languageToggle": "اردو"
 }

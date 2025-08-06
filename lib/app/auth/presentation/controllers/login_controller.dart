@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/services/navigation_service.dart';
 import 'auth_controller.dart';
-import '../../../../generated/l10n.dart';
+import '../../../../core/errors/validation_errors.dart';
 //import '../../../dashboard/home/presentation/screens/home.dart';
 
 class LoginController extends ChangeNotifier {
 
   final AuthController authController;
-  final S localization; // Injected localization
 
-  LoginController(this.authController, {required this.localization});
+  LoginController(this.authController);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -27,15 +25,15 @@ class LoginController extends ChangeNotifier {
   void navigateToRegister() {
     NavigationService.navigateToNamed('/register');
   }
-  Future<void> login() async {
+
+  Future<void> login(BuildContext context) async {
     final email = emailController.text.trim();
     final password = passwordController.text;
 
-    if (email.isEmpty || password.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorAllFieldsRequired);
-      return;
-    }
-    authController.login(email, password);
+  final isValid = ValidationErrors.validateLogin(email, password, context);
+  if (!isValid) return;
+
+    authController.login(email, password, context);
   }
 
   @override

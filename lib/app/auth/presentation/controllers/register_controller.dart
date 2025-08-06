@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'auth_controller.dart';
-import '../../../../core/services/snackbar_service.dart';
 import '../../data/models/model.dart';
 import '../../data/models/user_model.dart';
-import '../../../../generated/l10n.dart';
+import '../../../../core/errors/validation_errors.dart';
 
 class RegisterController extends ChangeNotifier {
   final AuthController authController;
-   final S localization; // Injected localization
 
-  RegisterController(this.authController, {required this.localization});
+  RegisterController(this.authController);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -29,52 +27,16 @@ class RegisterController extends ChangeNotifier {
     selectedRole = role;
     notifyListeners();
   }
-
-  bool validateForm(){
-    final email = emailController.text.trim();
-    final password = passwordController.text.trim();
-    final confirmPassword = confirmPasswordController.text.trim();
-
-    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorAllFieldsRequired);
-      return false;
-    }
-
-    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email)) {
-      SnackbarService.showSnackbar(localization.errorInvalidEmail);
-      return false;
-    }
-
-    if (password != confirmPassword) {
-      SnackbarService.showSnackbar(localization.errorPasswordsDoNotMatch);
-      return false;
-    }
-
-    if(password.length < 8) {
-      SnackbarService.showSnackbar(localization.errorPasswordTooShort);
-      return false;
-    }
-
-    if(password.contains(RegExp(r'[A-Z]')) && 
-       password.contains(RegExp(r'[a-z]')) && 
-       password.contains(RegExp(r'[0-9]')) && 
-       password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      // Password is strong
-    } else {
-      SnackbarService.showSnackbar(localization.errorPasswordRequirements);
-      return false;
-    }
-
-    if (selectedRole.isEmpty) {
-      SnackbarService.showSnackbar(localization.errorRoleNotSelected);
-      return false;
-    }
-
-    return true;
-  }
-
-  Future<void> register(BuildContext context) async {
-    if (!validateForm()) return;
+  
+Future<void> register(BuildContext context) async {
+  final isValid = ValidationErrors().validateRegister(
+    email: emailController.text.trim(),
+    password: passwordController.text.trim(),
+    confirmPassword: confirmPasswordController.text.trim(),
+    selectedRole: selectedRole,
+    context: context,
+  );
+  if (!isValid) return;
 
     //saving data in model so all functions should use model instead of local variables.
     generalModel.fromJson({

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import '../models/model.dart';
-import '../../../../core/utils/error_messages.dart';
+import '../../../../core/errors/firebase_errors.dart';
 
 class AuthRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,10 +16,11 @@ class AuthRemoteDataSource {
       final userCred = await _auth.createUserWithEmailAndPassword(email: email,password: password,);
       return Right(userCred); // Success
     } on FirebaseAuthException catch (e) {
-      final friendlyMessage = ErrorMessages.firebase(e.code);
+      final friendlyMessage = FirebaseErrors.firebase(e.code);
       return Left(friendlyMessage);
     }catch (e) {
-      return Left('An unexpected error occurred: ${e.toString()}'); // General error
+      final friendlyMessage = FirebaseErrors.firebase(e.toString());
+      return Left(friendlyMessage); // General error
     }
   }
 
@@ -32,54 +33,71 @@ class AuthRemoteDataSource {
       final userCred = await _auth.signInWithEmailAndPassword(email: email, password: password);
       return Right(userCred); // Success
     } on FirebaseAuthException catch (e) {
-      return Left(e.code); // Return error code
+      final friendlyMessage = FirebaseErrors.firebase(e.code);
+      return Left(friendlyMessage);
     } catch (e) {
-      return Left('An unexpected error occurred: ${e.toString()}'); // General error
+      final friendlyMessage = FirebaseErrors.firebase(e.toString());
+      return Left(friendlyMessage); // General error
     }
   }
 
-  Future<String> roleCheck() async {
-    final user = _auth.currentUser;
-    if (user != null) {
-      final userDoc = await _firestore.collection('User').doc(user.uid).get();
-      final hospitalDoc = await _firestore.collection('Hospital').doc(user.uid).get();
+  Future<Either<String, String>> roleCheck() async {
+  final user = _auth.currentUser;
 
-      if (userDoc.exists || hospitalDoc.exists) {
-        return userDoc.exists ? 'User' : 'Hospital';
-      }
-      else {
-        return "User document does not exist.";
-      }
-    }
-    else{
-    return 'User is null';
-    }
-    }
-  Future<Either<String, String>> screenToNavigate(User user) async {
-      
-    if (user.emailVerified) {
-      final role = await roleCheck();
-      if (role == 'User' || role == 'Hospital') {
-        final profileData = await fetchProfile(role);
-        final name = profileData?['Name']; 
+  if (user != null) {
+    final userDoc = await _firestore.collection('User').doc(user.uid).get();
+    final hospitalDoc = await _firestore.collection('Hospital').doc(user.uid).get();
 
-        if (name != null) {
-          return Right('/home'); // Navigate to HomeScreen
-        } 
-        else {
-          return Right(role == 'User' ? '/user-profile-setup' : '/hospital-profile-setup');
-          }
-      } 
-      else {
-        return Left(role);  // Return error message if role is not User or Hospital
-      }
+    if (userDoc.exists || hospitalDoc.exists) {
+      return Right(userDoc.exists ? 'User' : 'Hospital');  // success
     } else {
-      return Right('/email-verification'); // Navigate to email verification screen
+      return Left('user_not_found'); // error code
     }
+  } else {
+    return Left('user_null'); // error code
   }
+}
+
+Future<Either<String, String>> decideNavigationRoute(User user) async {
+
+  if (user.emailVerified) {
+    final roleResult = await roleCheck(); // Either<String (error), String (role)>
+
+    return await roleResult.fold(
+      (errorCode) {
+        return Left(errorCode); // e.g., 'user_not_found', 'user_null'
+      },
+      (role) async {
+        if (role == 'User' || role == 'Hospital') {
+          final profileData = await fetchProfile(role);
+          final name = profileData?['Name'];
+
+          if (name != null) {
+            return Right('/home'); // Navigate to HomeScreen
+          } else {
+            return Right(role == 'User' ? '/user-profile-setup' : '/hospital-profile-setup');
+          }
+        } else {
+          return Left('invalid_role');
+        }
+      },
+    );
+  } else {
+    return Right('/email-verification');
+  }
+}
   
-  Future<void> sendResetEmail(String email) {
-    throw _auth.sendPasswordResetEmail(email: email);
+  Future<Either<String, String>> sendResetEmail(String email) async {
+    try{
+      _auth.sendPasswordResetEmail(email: email);
+      return Right('Password reset email sent successfully.');
+    } on FirebaseAuthException catch (e) {
+      final friendlyMessage = FirebaseErrors.firebase(e.code);
+      return Left(friendlyMessage);
+    } catch (e) {
+      final friendlyMessage = FirebaseErrors.firebase(e.toString());
+      return Left(friendlyMessage); // General error
+    }
   }
 
 Future<bool> checkVerificationStatus() async {
