@@ -4,9 +4,10 @@ import '../../data/models/user_model.dart';
 import '../../data/models/hospital_model.dart';
 import '../../../../core/services/snackbar_service.dart';
 import '../../../../core/services/navigation_service.dart';
-import '../../../../core/services/customDialog_service.dart';
+import '../../../../core/services/custom_dialog_service.dart';
 import '../../data/datasource/auth_remote_datasource.dart';
-import '../../../../core/errors/app_errors.dart';
+import '../../../../core/utils/errors/app_errors.dart';
+import '../../../../core/utils/success/success_messages.dart';
 
 class AuthController extends ChangeNotifier {
   final AuthRemoteDataSource _remote = AuthRemoteDataSource();
@@ -50,14 +51,17 @@ class AuthController extends ChangeNotifier {
 
         if (userCredential.user == null) {
           stopLoading();
-          SnackbarService.showSnackbar('User not found after registration.');
+          SnackbarService.showSnackbar(AppErrors.getMessage(NavigationService.navigatorKey.currentContext!, 'user_null'));
           return;
         }
 
         generalModel.fromJson({'Uid': userCredential.user!.uid});
         startLoading();
         await _remote.initialInfoSave(); // Save role info in Firestore
-        generalModel.userCredential?.user!.sendEmailVerification();
+        if (await _sendVerificationEmail() == false) {
+          stopLoading();
+          return;
+        }
 
         // Navigate to email verification screen with role
         stopLoading();
@@ -110,17 +114,17 @@ class AuthController extends ChangeNotifier {
         stopLoading();
         SnackbarService.showSnackbar(failureMessage);
       },
-      (successMessage) async {
+      (sucess) async {
         stopLoading();
         CustomDialogService.showCustomDialog(
-          title: "Email Sent",
-          content: successMessage,
+          title: SuccessMessages.success('email_sent_title'),
+          content: SuccessMessages.success('reset_email_sent_message'),
         );
       },
     );
   }
 
-  Future<void> checkVerificationStatus() async {
+  Future<void> checkVerificationStatus(BuildContext context) async {
     startLoading();
       
     if (await _remote.checkVerificationStatus() == true) {
@@ -129,55 +133,74 @@ class AuthController extends ChangeNotifier {
         'IsVerified': true,
         'VerificationTimestamp': DateTime.now().toIso8601String(),
       });
-      
-      await _remote.updateProfile(generalModel.toJson());
-      stopLoading();
-      await CustomDialogService.showCustomDialog(
-      title: 'Verified',
-      content: 'Your email has been successfully verified.');
+      final result = await _remote.updateProfile(generalModel.toJson());
+
+      await result.fold(
+        (error) async {
+          stopLoading();
+          SnackbarService.showSnackbar(error);
+        },
+        (success) async {
+          stopLoading();
+          await CustomDialogService.showCustomDialog(
+            title: SuccessMessages.success('verified_title'),
+            content: SuccessMessages.success('verified_subtitle'),
+          );
        
-        if (generalModel.role == 'Hospital') {
-          NavigationService.navigateToReplacementNamed('/hospital-profile-setup');
-        } else {
-          NavigationService.navigateToReplacementNamed('/user-profile-setup');
+          if (generalModel.role == 'Hospital') {
+            NavigationService.navigateToReplacementNamed('/hospital-profile-setup');
+          } 
+          else {
+            NavigationService.navigateToReplacementNamed('/user-profile-setup');
+          }
         }
-      } else {
-        stopLoading();
-        CustomDialogService.showCustomDialog(
-          title: 'Email Not Verified',
-          content: 'Your email is not verified. Please verify your email and try again.',
+      );
+    }  
+    else {
+      stopLoading();
+      CustomDialogService.showCustomDialog(
+        title: SuccessMessages.success('not_verified_title'),
+        content: SuccessMessages.success('not_verified_subtitle'),
         );
       }
     }
 
-  Future<void> resendVerificationEmail() async {
+Future<bool> _sendVerificationEmail() async {
+    startLoading();
     
     try {
-      startLoading();
       await generalModel.userCredential?.user!.sendEmailVerification();
       stopLoading();
-      SnackbarService.showSnackbar('Verification email has been resent.');
+      SnackbarService.showSnackbar(SuccessMessages.success('email_verification_sent'));
+      return true;
     } catch (e) {
-      SnackbarService.showSnackbar('Error: ${e.toString()}');
-    } finally {
       stopLoading();
+      SnackbarService.showSnackbar(AppErrors.getMessage(NavigationService.navigatorKey.currentContext!, e.toString()));
+      return false;
     }
   }
 
-  Future<void> saveProfile(Map<String, dynamic> data) async {
+  Future<void> resendVerificationEmail() async {
+   if(await _sendVerificationEmail() == false){
+    return;
+   }
+  }
 
-    try {
-      startLoading();
-      await _remote.updateProfile(data);
-      stopLoading();
-      SnackbarService.showSnackbar('Profile updated successfully.');
-      NavigationService.navigateToReplacementNamed('/home');
-    } catch (e) {
-      stopLoading();
-      SnackbarService.showSnackbar('Failed to update profile: ${e.toString()}');
-    } finally {
-      stopLoading();
-    }
+  Future<void> saveProfile(Map<String, dynamic> data) async {
+    startLoading();
+    final result = await _remote.updateProfile(data);
+      
+    await result.fold(
+      (errorCode) async {
+        stopLoading();
+        SnackbarService.showSnackbar(AppErrors.getMessage(NavigationService.navigatorKey.currentContext!,"failed_to_update_profile") + errorCode);
+      },
+      (success) async {
+        stopLoading();
+        SnackbarService.showSnackbar(SuccessMessages.success('profile_updated'));
+        NavigationService.navigateToReplacementNamed('/home');
+      }
+    );
   }
 
   void logout() async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'auth_controller.dart';
 import '../../data/models/model.dart';
 import '../../data/models/user_model.dart';
-import '../../../../core/errors/validation_errors.dart';
+import '../../../../core/utils/errors/validation_errors.dart';
 
 class RegisterController extends ChangeNotifier {
   final AuthController authController;

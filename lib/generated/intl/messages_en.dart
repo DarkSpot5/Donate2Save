@@ -26,9 +26,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(error) => "An unexpected error occurred: ${error}";
 
-  static String m3(email) =>
-      "Password reset instructions have been sent to ${email}.";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appSubtitle": MessageLookupByLibrary.simpleMessage("Health Care"),
@@ -42,14 +39,17 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "emailLabel": MessageLookupByLibrary.simpleMessage("Email"),
     "emailSentTitle": MessageLookupByLibrary.simpleMessage("Email Sent"),
-    "emailVerificationSent": MessageLookupByLibrary.simpleMessage(
-      "A verification link has been sent to your email.",
-    ),
-    "emailVerificationSentSubtitle": MessageLookupByLibrary.simpleMessage(
+    "emailVerificationTextSubtitle": MessageLookupByLibrary.simpleMessage(
       "Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.",
+    ),
+    "emailVerificationTextTitle": MessageLookupByLibrary.simpleMessage(
+      "A verification link has been sent to your email.",
     ),
     "emailVerificationTitle": MessageLookupByLibrary.simpleMessage(
       "Email Verification",
+    ),
+    "emailVerificationsent": MessageLookupByLibrary.simpleMessage(
+      "verification email has been sent.",
     ),
     "errorAllFieldsRequired": MessageLookupByLibrary.simpleMessage(
       "All fields are required.",
@@ -100,6 +100,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "error_emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "Email already registered. Try logging in.",
+    ),
+    "error_failed_to_update_profile": MessageLookupByLibrary.simpleMessage(
+      "Failed to update profile.",
     ),
     "error_invalidCredentials": MessageLookupByLibrary.simpleMessage(
       "Invalid Credentials\nDo you have an account?",
@@ -159,9 +162,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "No new notifications.",
     ),
+    "notVerifiedSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Your email is not verified. Please check your inbox for the verification link.",
+    ),
+    "notVerifiedTitle": MessageLookupByLibrary.simpleMessage(
+      "Email Not Verified",
+    ),
     "orDivider": MessageLookupByLibrary.simpleMessage("or"),
     "otherLabel": MessageLookupByLibrary.simpleMessage("Other"),
     "passwordLabel": MessageLookupByLibrary.simpleMessage("Password"),
+    "profile_updated": MessageLookupByLibrary.simpleMessage(
+      "Profile updated successfully.",
+    ),
     "registerButton": MessageLookupByLibrary.simpleMessage("Register"),
     "registerCreateAccount": MessageLookupByLibrary.simpleMessage(
       "Create Account",
@@ -170,7 +182,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendVerificationEmail": MessageLookupByLibrary.simpleMessage(
       "Resend Verification Email",
     ),
-    "resetEmailSent": m3,
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "Password reset email sent successfully.",
+    ),
     "resetYourPassword": MessageLookupByLibrary.simpleMessage(
       "Reset Your Password",
     ),
@@ -179,6 +193,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectRoleLabel": MessageLookupByLibrary.simpleMessage("Select Role"),
     "sendResetEmail": MessageLookupByLibrary.simpleMessage("Send Reset Email"),
     "setupProfileTitle": MessageLookupByLibrary.simpleMessage("Setup Profile"),
+    "unknownSuccess": MessageLookupByLibrary.simpleMessage(
+      "Unknown success message encountered.",
+    ),
     "userNameLabel": MessageLookupByLibrary.simpleMessage("User Name"),
+    "verifiedSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Your email has been verified successfully. You can now proceed to set up your profile.",
+    ),
+    "verifiedTitle": MessageLookupByLibrary.simpleMessage("Verified"),
   };
 }

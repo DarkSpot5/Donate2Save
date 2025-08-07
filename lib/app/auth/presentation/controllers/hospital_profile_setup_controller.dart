@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../data/models/model.dart';
 import '../../data/models/hospital_model.dart';
 import '../controllers/auth_controller.dart';
-import '../../../../core/errors/validation_errors.dart';
+import '../../../../core/utils/errors/validation_errors.dart';
 
 class HospitalProfileSetupController extends ChangeNotifier {
   

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import '../models/model.dart';
-import '../../../../core/errors/firebase_errors.dart';
+import '../../../../core/utils/errors/firebase_errors.dart';
 
 class AuthRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -87,10 +87,10 @@ Future<Either<String, String>> decideNavigationRoute(User user) async {
   }
 }
   
-  Future<Either<String, String>> sendResetEmail(String email) async {
+  Future<Either<String, bool>> sendResetEmail(String email) async {
     try{
       _auth.sendPasswordResetEmail(email: email);
-      return Right('Password reset email sent successfully.');
+      return Right(true); // Success
     } on FirebaseAuthException catch (e) {
       final friendlyMessage = FirebaseErrors.firebase(e.code);
       return Left(friendlyMessage);
@@ -112,10 +112,16 @@ Future<bool> checkVerificationStatus() async {
       }
     }
 
-  Future<void>updateProfile(Map<String, dynamic> data) async {
-    final user = _auth.currentUser;
-    if (user != null) {
-      await _firestore.collection(generalModel.role.toString()).doc(user.uid).update(data);
+  Future<Either<String, bool>>updateProfile(Map<String, dynamic> data) async {
+    try {
+      await _firestore.collection(generalModel.role.toString()).doc(generalModel.userCredential!.user!.uid).update(data);
+      return Right(true); // Success
+    } on FirebaseException catch (e) {
+      final friendlyMessage = FirebaseErrors.firebase(e.code);
+      return Left(friendlyMessage);
+    } catch (e) {
+      final friendlyMessage = FirebaseErrors.firebase(e.toString());
+      return Left(friendlyMessage); // General error
     }
   }
 

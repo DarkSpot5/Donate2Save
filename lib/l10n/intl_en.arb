@@ -13,13 +13,7 @@
   "resetYourPassword": "Reset Your Password",
   "sendResetEmail": "Send Reset Email",
   "emailSentTitle": "Email Sent",
-  "resetEmailSent": "Password reset instructions have been sent to {email}.",
-  "@resetEmailSent": {
-    "description": "Message shown after sending a password reset email",
-    "placeholders": {
-      "email": {}
-    }
-  },
+  "resetEmailSent": "Password reset email sent successfully.",
 
   "appTitle": "Donate2Save",
   "appSubtitle": "Health Care",
@@ -28,10 +22,15 @@
   "orDivider": "or",
 
   "emailVerificationTitle": "Email Verification",
-  "emailVerificationSent": "A verification link has been sent to your email.",
-  "emailVerificationSentSubtitle": "Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.",
+  "emailVerificationTextTitle": "A verification link has been sent to your email.",
+  "emailVerificationTextSubtitle": "Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.",
+  "emailVerificationsent": "verification email has been sent.",
   "iVerifiedMyEmail": "I verified My Email",
   "resendVerificationEmail": "Resend Verification Email",
+  "verifiedTitle": "Verified",
+  "verifiedSubtitle": "Your email has been verified successfully. You can now proceed to set up your profile.",
+  "notVerifiedTitle": "Email Not Verified",
+  "notVerifiedSubtitle": "Your email is not verified. Please check your inbox for the verification link.",
 
   "userNameLabel": "User Name",
   "bloodGroupLabel": "Blood Group",
@@ -83,6 +82,7 @@
   "error_user_null": "User is null.",
   "error_user_not_found": "User document does not exist.",
   "error_invalid_role": "Invalid role returned from Firestore.",
+  "error_failed_to_update_profile": "Failed to update profile.",
 
   "error_networkRequestFailed": "Check your internet connection.",
   "error_userDisabled": "This user has been disabled.",
@@ -104,6 +104,9 @@
       "error": {}
     }
   },
+
+  "profile_updated": "Profile updated successfully.",
+  "unknownSuccess": "Unknown success message encountered.",
 
   "languageToggle": "اردو"
 }

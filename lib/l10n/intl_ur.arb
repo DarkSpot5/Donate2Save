@@ -13,13 +13,7 @@
   "resetYourPassword": "اپنا پاس ورڈ دوبارہ ترتیب دیں",
   "emailSentTitle": "ای میل بھیج دی",
   "sendResetEmail": "ری سیٹ ای میل بھیجیں",
-  "resetEmailSent": "پاس ورڈ ری سیٹ کی معلومات {email} پر بھیج دی گئی ہیں۔",
-  "@resetEmailSent": {
-    "description": "پاس ورڈ ری سیٹ ای میل بھیجنے کے بعد دکھایا جانے والا پیغام",
-    "placeholders": {
-      "email": {}
-    }
-},
+  "resetEmailSent": "پاس ورڈ ری سیٹ ای میل بھیج دی گئی ہے۔",
 
   "appTitle": "ڈونیٹ 2 سیو",
   "appSubtitle": "ہیلتھ کیئر",
@@ -28,10 +22,15 @@
   "orDivider": "یا",
 
   "emailVerificationTitle": "ای میل کی تصدیق",
-  "emailVerificationSent": "آپ کی ای میل پر ایک تصدیقی لنک بھیج دیا گیا ہے۔",
-  "emailVerificationSentSubtitle": "براہ کرم اپنے ان باکس کو چیک کریں اور تصدیقی لنک پر کلک کریں۔\nاگر آپ کو ای میل نظر نہیں آتی تو براہ کرم اپنے سپیم فولڈر کو چیک کریں۔",
+  "emailVerificationTextTitle": "آپ کی ای میل پر ایک تصدیقی لنک بھیج دیا گیا ہے۔",
+  "emailVerificationTextSubtitle": "براہ کرم اپنے ان باکس کو چیک کریں اور تصدیقی لنک پر کلک کریں۔\nاگر آپ کو ای میل نظر نہیں آتی تو براہ کرم اپنے سپیم فولڈر کو چیک کریں۔",
+  "emailVerificationsent": "تصدیقی ای میل بھیج دی گئی ہے۔",
   "iVerifiedMyEmail": "میں نے تصدیق کر لی ہے",
   "resendVerificationEmail": "تصدیقی ای میل دوبارہ بھیجیں",
+  "verifiedTitle": "تصدیق شدہ",
+  "verifiedSubtitle": "آپ کی ای میل کامیابی سے تصدیق ہو گئی ہے۔ آپ اب اپنے پروفائل کو ترتیب دینے کے لیے آگے بڑھ سکتے ہیں.",
+  "notVerifiedTitle": "ای میل تصدیق نہیں ہوئی",
+  "notVerifiedSubtitle": "آپ کی ای میل کی تصدیق نہیں ہوئی ہے۔ براہ کرم تصدیقی لنک کے لیے اپنے ان باکس کو چیک کریں۔",
 
   "userNameLabel": "صارف کا نام",
   "bloodGroupLabel": "خون کا گروپ",
@@ -83,6 +82,7 @@
   "error_user_null": "صارف موجود نہیں ہے۔",
   "error_user_not_found": "صارف کی معلومات موجود نہیں ہیں۔",
   "error_invalid_role": "فائر اسٹور سے غلط کردار واپس آیا۔",
+  "error_failed_to_update_profile": "پروفائل کو اپ ڈیٹ کرنے میں ناکامی۔",
 
 
   "error_networkRequestFailed": "اپنے انٹرنیٹ کنکشن کو چیک کریں۔",
@@ -105,6 +105,9 @@
       "error": {}
     }
   },
+
+  "profile_updated": "پروفائل کامیابی سے اپ ڈیٹ ہو گئی ہے۔",
+  "unknownSuccess": "ہمیں ایک نامعلوم کامیابی کا پیغام ملا ہے۔",
 
   "languageToggle": "English"
 }

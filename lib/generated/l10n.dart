@@ -144,13 +144,13 @@ class S {
     );
   }
 
-  /// `Password reset instructions have been sent to {email}.`
-  String resetEmailSent(Object email) {
+  /// `Password reset email sent successfully.`
+  String get resetEmailSent {
     return Intl.message(
-      'Password reset instructions have been sent to $email.',
+      'Password reset email sent successfully.',
       name: 'resetEmailSent',
-      desc: 'Message shown after sending a password reset email',
-      args: [email],
+      desc: '',
+      args: [],
     );
   }
 
@@ -195,20 +195,30 @@ class S {
   }
 
   /// `A verification link has been sent to your email.`
-  String get emailVerificationSent {
+  String get emailVerificationTextTitle {
     return Intl.message(
       'A verification link has been sent to your email.',
-      name: 'emailVerificationSent',
+      name: 'emailVerificationTextTitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.`
-  String get emailVerificationSentSubtitle {
+  String get emailVerificationTextSubtitle {
     return Intl.message(
       'Please check your inbox and click on the verification link.\nIf you do not see the email, please check your spam folder.',
-      name: 'emailVerificationSentSubtitle',
+      name: 'emailVerificationTextSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `verification email has been sent.`
+  String get emailVerificationsent {
+    return Intl.message(
+      'verification email has been sent.',
+      name: 'emailVerificationsent',
       desc: '',
       args: [],
     );
@@ -229,6 +239,41 @@ class S {
     return Intl.message(
       'Resend Verification Email',
       name: 'resendVerificationEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified`
+  String get verifiedTitle {
+    return Intl.message('Verified', name: 'verifiedTitle', desc: '', args: []);
+  }
+
+  /// `Your email has been verified successfully. You can now proceed to set up your profile.`
+  String get verifiedSubtitle {
+    return Intl.message(
+      'Your email has been verified successfully. You can now proceed to set up your profile.',
+      name: 'verifiedSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Not Verified`
+  String get notVerifiedTitle {
+    return Intl.message(
+      'Email Not Verified',
+      name: 'notVerifiedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your email is not verified. Please check your inbox for the verification link.`
+  String get notVerifiedSubtitle {
+    return Intl.message(
+      'Your email is not verified. Please check your inbox for the verification link.',
+      name: 'notVerifiedSubtitle',
       desc: '',
       args: [],
     );
@@ -536,6 +581,16 @@ class S {
     );
   }
 
+  /// `Failed to update profile.`
+  String get error_failed_to_update_profile {
+    return Intl.message(
+      'Failed to update profile.',
+      name: 'error_failed_to_update_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Check your internet connection.`
   String get error_networkRequestFailed {
     return Intl.message(
@@ -661,6 +716,26 @@ class S {
     return Intl.message(
       'Something went wrong. Please try again.',
       name: 'error_default',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile updated successfully.`
+  String get profile_updated {
+    return Intl.message(
+      'Profile updated successfully.',
+      name: 'profile_updated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown success message encountered.`
+  String get unknownSuccess {
+    return Intl.message(
+      'Unknown success message encountered.',
+      name: 'unknownSuccess',
       desc: '',
       args: [],
     );

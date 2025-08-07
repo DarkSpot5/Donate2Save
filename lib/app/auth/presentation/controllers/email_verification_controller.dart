@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'auth_controller.dart';
 
 class EmailVerificationController {
@@ -5,8 +7,8 @@ class EmailVerificationController {
   final AuthController authController;
   EmailVerificationController(this.authController);
 
-  Future<void> checkVerificationStatus() async {
-    authController.checkVerificationStatus();
+  Future<void> checkVerificationStatus(BuildContext context) async {
+    authController.checkVerificationStatus(context);
   }
 
   Future<void> resendVerificationEmail() async {

@@ -26,9 +26,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(error) => "ایک غیر متوقع خرابی پیش آگئی: ${error}";
 
-  static String m3(email) =>
-      "پاس ورڈ ری سیٹ کی معلومات ${email} پر بھیج دی گئی ہیں۔";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appSubtitle": MessageLookupByLibrary.simpleMessage("ہیلتھ کیئر"),
@@ -40,14 +37,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "contactNumberLabel": MessageLookupByLibrary.simpleMessage("رابطہ نمبر"),
     "emailLabel": MessageLookupByLibrary.simpleMessage("ای میل"),
     "emailSentTitle": MessageLookupByLibrary.simpleMessage("ای میل بھیج دی"),
-    "emailVerificationSent": MessageLookupByLibrary.simpleMessage(
-      "آپ کی ای میل پر ایک تصدیقی لنک بھیج دیا گیا ہے۔",
-    ),
-    "emailVerificationSentSubtitle": MessageLookupByLibrary.simpleMessage(
+    "emailVerificationTextSubtitle": MessageLookupByLibrary.simpleMessage(
       "براہ کرم اپنے ان باکس کو چیک کریں اور تصدیقی لنک پر کلک کریں۔\nاگر آپ کو ای میل نظر نہیں آتی تو براہ کرم اپنے سپیم فولڈر کو چیک کریں۔",
+    ),
+    "emailVerificationTextTitle": MessageLookupByLibrary.simpleMessage(
+      "آپ کی ای میل پر ایک تصدیقی لنک بھیج دیا گیا ہے۔",
     ),
     "emailVerificationTitle": MessageLookupByLibrary.simpleMessage(
       "ای میل کی تصدیق",
+    ),
+    "emailVerificationsent": MessageLookupByLibrary.simpleMessage(
+      "تصدیقی ای میل بھیج دی گئی ہے۔",
     ),
     "errorAllFieldsRequired": MessageLookupByLibrary.simpleMessage(
       "تمام فیلڈز کا پُر کرنا ضروری ہے۔",
@@ -98,6 +98,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "error_emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "ای میل پہلے سے رجسٹرڈ ہے۔ براہ کرم لاگ ان کریں۔",
+    ),
+    "error_failed_to_update_profile": MessageLookupByLibrary.simpleMessage(
+      "پروفائل کو اپ ڈیٹ کرنے میں ناکامی۔",
     ),
     "error_invalidCredentials": MessageLookupByLibrary.simpleMessage(
       "غلط معلومات\nکیا آپ کا اکاؤنٹ ہے؟",
@@ -157,9 +160,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotifications": MessageLookupByLibrary.simpleMessage(
       "کوئی نئی اطلاعات نہیں",
     ),
+    "notVerifiedSubtitle": MessageLookupByLibrary.simpleMessage(
+      "آپ کی ای میل کی تصدیق نہیں ہوئی ہے۔ براہ کرم تصدیقی لنک کے لیے اپنے ان باکس کو چیک کریں۔",
+    ),
+    "notVerifiedTitle": MessageLookupByLibrary.simpleMessage(
+      "ای میل تصدیق نہیں ہوئی",
+    ),
     "orDivider": MessageLookupByLibrary.simpleMessage("یا"),
     "otherLabel": MessageLookupByLibrary.simpleMessage("دیگر"),
     "passwordLabel": MessageLookupByLibrary.simpleMessage("پاس ورڈ"),
+    "profile_updated": MessageLookupByLibrary.simpleMessage(
+      "پروفائل کامیابی سے اپ ڈیٹ ہو گئی ہے۔",
+    ),
     "registerButton": MessageLookupByLibrary.simpleMessage("رجسٹر"),
     "registerCreateAccount": MessageLookupByLibrary.simpleMessage(
       "اکاؤنٹ بنائیں",
@@ -168,7 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendVerificationEmail": MessageLookupByLibrary.simpleMessage(
       "تصدیقی ای میل دوبارہ بھیجیں",
     ),
-    "resetEmailSent": m3,
+    "resetEmailSent": MessageLookupByLibrary.simpleMessage(
+      "پاس ورڈ ری سیٹ ای میل بھیج دی گئی ہے۔",
+    ),
     "resetYourPassword": MessageLookupByLibrary.simpleMessage(
       "اپنا پاس ورڈ دوبارہ ترتیب دیں",
     ),
@@ -183,6 +197,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "setupProfileTitle": MessageLookupByLibrary.simpleMessage(
       "پروفائل کی ترتیب",
     ),
+    "unknownSuccess": MessageLookupByLibrary.simpleMessage(
+      "ہمیں ایک نامعلوم کامیابی کا پیغام ملا ہے۔",
+    ),
     "userNameLabel": MessageLookupByLibrary.simpleMessage("صارف کا نام"),
+    "verifiedSubtitle": MessageLookupByLibrary.simpleMessage(
+      "آپ کی ای میل کامیابی سے تصدیق ہو گئی ہے۔ آپ اب اپنے پروفائل کو ترتیب دینے کے لیے آگے بڑھ سکتے ہیں.",
+    ),
+    "verifiedTitle": MessageLookupByLibrary.simpleMessage("تصدیق شدہ"),
   };
 }

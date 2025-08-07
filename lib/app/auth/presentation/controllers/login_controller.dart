@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/services/navigation_service.dart';
 import 'auth_controller.dart';
-import '../../../../core/errors/validation_errors.dart';
+import '../../../../core/utils/errors/validation_errors.dart';
 //import '../../../dashboard/home/presentation/screens/home.dart';
 
 class LoginController extends ChangeNotifier {

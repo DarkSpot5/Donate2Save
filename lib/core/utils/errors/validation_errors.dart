@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../generated/l10n.dart';
-import '../services/snackbar_service.dart';
+import '../../../generated/l10n.dart';
+import '../../services/snackbar_service.dart';
 
 class ValidationErrors {
   // Register Form Validation
@@ -77,6 +77,12 @@ class ValidationErrors {
       SnackbarService.showSnackbar(localization.errorEnterEmail);
       return false;
     }
+    
+    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email)) {
+      SnackbarService.showSnackbar(localization.errorInvalidEmail);
+      return false;
+    }
+
     return true;
   }
 

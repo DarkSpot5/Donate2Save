@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth_controller.dart';
-import '../../../../core/errors/validation_errors.dart';
+import '../../../../core/utils/errors/validation_errors.dart';
 
 class ForgotPasswordController {
 

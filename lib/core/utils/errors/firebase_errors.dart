@@ -1,5 +1,5 @@
-import '../../generated/l10n.dart';
-import '../services/navigation_service.dart';
+import '../../../generated/l10n.dart';
+import '../../services/navigation_service.dart';
 
 class FirebaseErrors {
   static String firebase(String errorCode) {

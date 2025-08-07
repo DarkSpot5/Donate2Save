@@ -32,7 +32,7 @@ class EmailVerificationScreen extends StatelessWidget {
           child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(S.of(context).emailVerificationSent,
+                  Text(S.of(context).emailVerificationTextTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
@@ -40,7 +40,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   const SizedBox(height: 20),
 
                     Text(
-                      S.of(context).emailVerificationSentSubtitle,
+                      S.of(context).emailVerificationTextSubtitle,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white70),
                     ),
@@ -50,7 +50,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   // "I Verified My Email" Button
                   ElevatedButton(
                     onPressed: () async {
-                        await controller.checkVerificationStatus();   
+                        await controller.checkVerificationStatus(context);   
                             },
                     child: Text(
                       S.of(context).iVerifiedMyEmail,
